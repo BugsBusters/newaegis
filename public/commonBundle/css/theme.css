@@ -1,0 +1,85 @@
+body{
+    background-color: #f9ffea;
+}
+.aegis-header{
+    background: #bfcc97;
+    border-bottom: solid 1px #bfcc97;
+}
+.aegis-page{
+    background:#f9ffea;
+}
+.icon-black{
+    color:black;
+}
+.site-header .header-alarm.active:after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #fff;
+    background: #e9cb0c;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    margin-left: 1px
+}
+.background-dark{
+    background: #48303d;
+}
+
+.site-header .user-menu.dropdown .dropdown-toggle {
+    display: block;
+    color: black;
+    height: 30px;
+    border: none;
+    background: 0 0;
+    line-height: 30px;
+}
+.background-green-dark{
+    background:#5c6b4c;
+}
+.side-menu-list .lbl {
+    font-weight: 600;
+    color: #bfcc96;
+    font-size: 1rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.show-hide-sidebar span, .show-hide-sidebar span:after, .show-hide-sidebar span:before {
+    background-color: #4a303d;
+}
+
+.show-hide-sidebar:hover span, .show-hide-sidebar:hover span:after, .show-hide-sidebar:hover span:before {
+    background-color: #ebe7ce;
+}
+/** PALETTE PER MENU LATERALE. GREEN BASE è IL COLORE PIU CHIARO, GLI ALTRI SONO SEMPRE PIU SCURI **/
+.green-base{
+    color:#b3ad79;
+}
+.green-base:hover{
+    color:#b3ad79;
+}
+.green-base-dark{
+    color:#b7ad8f;
+}
+.green-base-dark:hover{
+    color:#b7ad8f;
+}
+.green-base-darker {
+    color: #acb985
+}
+.green-base-darker:hover {
+    color: #acb985
+}
+.statistic-box.olive-oil {
+    background-color: #c9b32c;
+}
+.hidden {
+    display:none;
+}
+
+
+
