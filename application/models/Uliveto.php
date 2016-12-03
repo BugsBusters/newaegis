@@ -9,7 +9,7 @@ class Application_Model_Uliveto
         $this->tabella = new Application_Model_DbTable_Uliveto();
     }
 
-    public function getUliveti()
+    public function elencoUliveti()
     {
         return $this->tabella->fetchAll();
     }
@@ -19,12 +19,27 @@ class Application_Model_Uliveto
         return $this->tabella->find($id);
     }
 
+    public function inserisciUliveto($dati)
+    {
+        return $this->tabella->insert($dati);
+    }
+
+    public function modificaUliveto($dati, $id)
+    {
+        return $this->tabella->update($dati, "iduliveto = '$id");
+    }
+
+    public function eliminaUliveto($id)
+    {
+        return $this->tabella->delete("iduliveto = '$id");
+    }
+
     /**
      * Questo metodo restituisce la corretta formattazione in col- bootstrap
      */
     public function formattaUlivetoHome()
     {
-        $numUliveti = count($this->getUliveti());
+        $numUliveti = count($this->elencoUliveti());
             $valori[] = 1;
             $valori[] = 2;
             $valori[] = 3;

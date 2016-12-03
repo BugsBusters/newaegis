@@ -9,7 +9,7 @@ class Application_Model_Utente
         $this->tabella = new Application_Model_DbTable_Utente();
     }
 
-    public function getUtenti()
+    public function elencoUtenti()
     {
         return $this->tabella->fetchAll();
     }

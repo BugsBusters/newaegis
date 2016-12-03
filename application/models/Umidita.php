@@ -10,18 +10,39 @@ class Application_Model_Umidita
     }
 
 
-    public function getUmidita()
+    public function elencoUmidita()
     {
         return $this->tabella->fetchAll();
     }
 
+    public function getUmiditaById($id)
+    {
+        return $this->tabella->find($id);
+    }
+
+    public function inserisciUmidita($dati)
+    {
+        return $this->tabella->insert($dati);
+    }
+
+    public function modificaUmidita($dati, $id)
+    {
+        return $this->tabella->update($dati, "idumidita = '$id");
+    }
+
+    public function eliminaUmidita($id)
+    {
+        return $this->tabella->delete("idumidita = '$id");
+    }
+    
+
     /**
      * @return float|int ritoorna la media delle umidita
      */
-    public function getUmiditaMedia()
+    public function elencoUmiditaMedia()
     {
         //inizializzo somma e umidità. Umidità contiene l'elenco delle umidità
-        $umidità = $this->getUmidita();
+        $umidità = $this->elencoUmidita();
         $somma = 0;
         //sommo tutte le percentuali di umidita
         foreach ($umidità as $dato) {
@@ -34,7 +55,7 @@ class Application_Model_Umidita
 
     public function getGraficoUmidita()
     {
-        $risultati = $this->getUmidita();
+        $risultati = $this->elencoUmidita();
         $numero = "['umidita',";
         $date = "['date',";
         $limite = count($risultati);
