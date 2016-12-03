@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head lang="it">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>StartUI - Premium Bootstrap 4 Admin Dashboard Template</title>
+
+    <link href="img/favicon.144x144.html" rel="apple-touch-icon" type="image/png" sizes="144x144">
+    <link href="img/favicon.114x114.html" rel="apple-touch-icon" type="image/png" sizes="114x114">
+    <link href="img/favicon.72x72.html" rel="apple-touch-icon" type="image/png" sizes="72x72">
+    <link href="img/favicon.57x57.html" rel="apple-touch-icon" type="image/png">
+    <link href="img/favicon.html" rel="icon" type="image/png">
+    <link href="img/favicon-2.html" rel="shortcut icon">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/lib/lobipanel/lobipanel.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/separate/vendor/lobipanel.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/lib/jqueryui/jquery-ui.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/separate/pages/widgets.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/lib/font-awesome/font-awesome.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/adminBundle/css/lib/bootstrap/bootstrap.min.css"); ?>">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/adminBundle/css/main.css"); ?>">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/adminBundle/css/theme.css"); ?>">
+    <link href="<?php echo $this->baseUrl("public/adminBundle/css/lib/charts-c3js/c3.min.css"); ?>" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/loginBundle/css/alert.css"); ?>">
+    <style>
+        .c3-line {
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+<script src="https://use.fontawesome.com/7ab910910b.js"></script>
+<body class="with-side-menu control-panel control-panel-compact">
+
+<header class="site-header aegis-header">
+    <div class="container-fluid">
+
+        <a href="#" class="site-logo">
+            <img class="hidden-md-down" src="<?php echo $this->baseUrl("public/adminBundle/img/logo-2.png"); ?>" alt="">
+            <img class="hidden-lg-up" src="<?php echo $this->baseUrl("public/adminBundle/img/logo-2-mob.png"); ?>"
+                 alt="">
+        </a>
+
+        <button id="show-hide-sidebar-toggle" class="show-hide-sidebar">
+            <span class="aegis-hamburger">toggle menu</span>
+        </button>
+
+        <button class="hamburger hamburger--htla">
+            <span>toggle menu</span>
+        </button>
+        <div class="site-header-content">
+            <div class="site-header-content-in">
+                <div class="site-header-shown">
+                    <div class="dropdown dropdown-notification notif">
+                        <a href="#"
+                           class="header-alarm dropdown-toggle active"
+                           id="dd-notification"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            <i class="font-icon-alarm icon-black"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-notif"
+                             aria-labelledby="dd-notification">
+                            <div class="dropdown-menu-notif-header">
+                                Notifications
+                                <span class="label label-pill label-danger">4</span>
+                            </div>
+                            <div class="dropdown-menu-notif-list">
+                                <div class="dropdown-menu-notif-item">
+                                    <div class="photo">
+                                        <img src="img/photo-64-1.jpg" alt="">
+                                    </div>
+                                    <div class="dot"></div>
+                                    <a href="#">Morgan</a> was bothering about something
+                                    <div class="color-blue-grey-lighter">7 hours ago</div>
+                                </div>
+                                <div class="dropdown-menu-notif-item">
+                                    <div class="photo">
+                                        <img src="img/photo-64-2.jpg" alt="">
+                                    </div>
+                                    <div class="dot"></div>
+                                    <a href="#">Lioneli</a> had commented on this <a href="#">Super Important Thing</a>
+                                    <div class="color-blue-grey-lighter">7 hours ago</div>
+                                </div>
+                                <div class="dropdown-menu-notif-item">
+                                    <div class="photo">
+                                        <img src="img/photo-64-3.jpg" alt="">
+                                    </div>
+                                    <div class="dot"></div>
+                                    <a href="#">Xavier</a> had commented on the <a href="#">Movie title</a>
+                                    <div class="color-blue-grey-lighter">7 hours ago</div>
+                                </div>
+                                <div class="dropdown-menu-notif-item">
+                                    <div class="photo">
+                                        <img src="img/photo-64-4.jpg" alt="">
+                                    </div>
+                                    <a href="#">Lionely</a> wants to go to <a href="#">Cinema</a> with you to see <a
+                                        href="#">This Movie</a>
+                                    <div class="color-blue-grey-lighter">7 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu-notif-more">
+                                <a href="#">See more</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="dropdown user-menu">
+                        <button class="dropdown-toggle" id="dd-user-menu" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <img class="background-dark"
+                                 src="<?php echo $this->baseUrl("public/adminBundle/img/avatar-2-64.png"); ?>" alt="">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd-user-menu">
+                            <a class="dropdown-item" href="#"><span class="font-icon glyphicon glyphicon-user"></span>Profile</a>
+                            <a class="dropdown-item" href="#"><span class="font-icon glyphicon glyphicon-cog"></span>Settings</a>
+                            <a class="dropdown-item" href="#"><span
+                                    class="font-icon glyphicon glyphicon-question-sign"></span>Help</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?php echo $this->url(array(
+                                'controller' => 'user',
+                                'action' => 'logout'),
+                                'default', true);
+                            ?>"><span
+                                    class="font-icon glyphicon glyphicon-log-out"></span>Logout</a>
+                        </div>
+                    </div>
+
+                    <button type="button" class="burger-right">
+                        <i class="font-icon-menu-addl"></i>
+                    </button>
+                </div><!--.site-header-shown-->
+
+                <div class="mobile-menu-right-overlay"></div>
+                <div class="site-header-collapsed">
+
+                </div><!--.site-header-collapsed-->
+            </div><!--site-header-content-in-->
+        </div><!--.site-header-content-->
+    </div><!--.container-fluid-->
+</header><!--.site-header-->
+
+<div class="mobile-menu-left-overlay"></div>
+<nav class="side-menu background-green-dark">
+    <ul class="side-menu-list">
+        <li class="green-base">
+	            <a class="green-base" href="<?php echo $this->url(array(
+                    'controller' => 'user',
+                    'action' => 'index'),
+                    'default', true);
+                ?>">
+	                <i class="font-icon font-icon-dashboard"></i>
+	                <span class="text-green-light lbl">Dashboard</span>
+	            </a>
+        </li>
+        <?php if ($this->ruolo == 'user'): ?>
+            <li class="green-base-dark">
+                <a class="green-base-dark" href="<?php echo $this->url(array(
+                    'controller' => 'user',
+                    'action' => 'gestione-uliveti'),
+                    'default', true);
+                ?>">
+                    <i class="fa fa-pagelines"></i>
+                    <span class="lbl">Gestione Uliveti</span>
+                </a>
+            </li>
+            <li class="green-base-dark">
+                <a class="green-base-dark" href="<?php echo $this->url(array(
+                    'controller' => 'user',
+                    'action' => 'modificaprofilo'),
+                    'default', true);
+                ?>">
+                    <i class="font-icon font-icon-user"></i>
+                    <span class="lbl">Modifica Profilo</span>
+                </a>
+            </li>
+            <li class="green-base-darker">
+	            <span>
+	                <span class="glyphicon glyphicon-cog"></span>
+	                <span class="lbl">Impostazioni dei sensori</span>
+	            </span>
+            </li>
+        <?php elseif ($this->ruolo == 'admin'): ?>
+            <li class="green-base-dark">
+                <a>
+                    <i class="fa fa-pagelines"></i>
+                    <span class="lbl">Gestione Uliveti</span>
+                </a>
+            </li>
+
+            <li class="green-base-darker">
+	            <span>
+	                <i class="font-icon font-icon-help"></i>
+	                <span class="lbl">Gestione Malfunzionamenti</span>
+	            </span>
+            </li>
+        <?php endif; ?>
+    </ul>
+
+
+</nav><!--.side-menu-->
+
+
+<?php echo $this->layout()->content; ?>
+
+
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/jquery/jquery.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/tether/tether.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/bootstrap/bootstrap.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/plugins.js"); ?>"></script>
+
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl("public/adminBundle/js/lib/jqueryui/jquery-ui.min.js"); ?>"></script>
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl("public/adminBundle/js/lib/lobipanel/lobipanel.min.js"); ?>"></script>
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl("public/adminBundle/js/lib/match-height/jquery.matchHeight.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/app.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/modificaprofilo.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/d3/d3.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/charts-c3js/c3.min.js"); ?>"></script>
+<!--<script src="<?php echo $this->baseUrl("public/adminBundle/js/lib/charts-c3js/c3js-init.js"); ?>"></script>-->
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/lib/jquery-validation/jquery.validate.min.js");?>"></script>
+
+<?php if ($this->currentPage == 'user/index'): ?>
+    <script>
+        var chart = c3.generate({
+            "bindto": '#area-chart',
+            data: {
+                xs: {
+                    'umidita': 'date',
+                    'mosche': 'date'
+                },
+                colors: {
+                    umidita: '#c9b32c',
+                    mosche: '#46c35f'
+                },
+                types: {
+                    umidita: 'area-spline',
+                    mosche: 'area-spline'
+                },
+                columns: [
+                    <?php echo $this->dateUmidita; ?>
+                    <?php echo $this->valoriUmidita; ?>
+                    <?php echo $this->valoriMosche; ?>
+                ]
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%d-%m-%Y'
+                    }
+                }
+            }
+        });
+    </script>
+    <script>var pieChart = c3.generate({
+            bindto: '#pie-chart',
+            data: {
+                columns: [
+                    ['funzionanti', <?php echo $this->percentualeSicuri; ?>],
+                    ['difettosi', <?php echo $this->percentualeMalfunzionanti; ?>]
+                ],
+                type: 'pie',
+                colors: {
+                    funzionanti: '#2ecc71',
+                    difettosi: '#95a5a6'
+                }
+            }
+        });
+    </script>
+    <script>
+        var donutChart = c3.generate({
+            bindto: '#donut-chart',
+            data: {
+                columns: [
+                    ['sicuri', <?php echo $this->percentualeSicuri; ?>],
+                    ['allertati', <?php echo $this->percentualeAllertati; ?>],
+                    ['insicuri', <?php echo $this->percentualePericolosi; ?>],
+                ],
+                type: 'donut',
+                colors: {
+                    sicuri: '#2ecc71',
+                    allertati: '#e67e22',
+                    insicuri: '#e74c3c'
+                }
+            },
+            donut: {
+                title: "Stato dei nodi"
+            },
+
+        });
+    </script>
+    <script>
+        var gaugeChart = c3.generate({
+            bindto: '#gauge-chart',
+            data: {
+                columns: [
+                    ['data', <?php echo $this->percentualeSicuri; ?>]
+                ],
+                type: 'gauge',
+            },
+            gauge: {},
+            color: {
+                pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                threshold: {
+                    values: [30, 60, 90, 100]
+                }
+            },
+            size: {
+                height: 180
+            }
+        });
+    </script>
+<?php endif; ?>
+</body>
+
+
+</html>

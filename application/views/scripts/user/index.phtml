@@ -1,0 +1,98 @@
+<div class="page-content aegis-page">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="row">
+					<div class="col-sm-4 col-md-4">
+						<article class="statistic-box olive-oil">
+							<div>
+								<div class="number"><?php echo $this->temperaturaMedia;?></div>
+								<div class="caption">
+									<div>Temperatura Media</div>
+								</div>
+								<div class="percent">
+									<div class="arrow up"></div>
+									<p>15%</p>
+								</div>
+							</div>
+						</article>
+					</div><!--.col-->
+					<div class="col-sm-4 col-md-4">
+						<article class="statistic-box olive-oil">
+							<div>
+								<div class="number"><?php echo $this->umiditaMedia;?></div>
+								<div class="caption">
+									<div>Umidità media</div>
+								</div>
+								<div class="percent">
+									<div class="arrow down"></div>
+									<p>11%</p>
+								</div>
+							</div>
+						</article>
+					</div><!--.col-->
+					<div class="col-sm-4 col-md-4">
+						<article class="statistic-box olive-oil">
+							<div>
+								<div class="number"><?php echo $this->trappolaMedia;?></div>
+								<div class="caption">
+									<div>Conta delle mosche</div>
+								</div>
+								<div class="percent">
+									<div class="arrow down"></div>
+									<p>5%</p>
+								</div>
+							</div>
+						</article>
+					</div><!--.col-->
+				</div><!--.row-->
+			</div><!--.col-->
+		</div><!--.row-->
+
+		<div class="row">
+			<div class="col-xl-12 dahsboard-column">
+				<section class="card">
+					<header class="card-header">
+						Grafico dei sensori
+					</header>
+					<div class="card-block">
+						<div id="area-chart"></div>
+					</div>
+				</section>
+			</div><!--.col-->
+			<div class="col-xl-12 dahsboard-column">
+                <div class="col-lg-4">
+                    <section class="card">
+                        <header class="card-header">
+                            Nodi malfunzionanti
+                        </header>
+                        <div class="card-block">
+                            <div id="pie-chart"></div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-lg-4">
+                    <section class="card">
+                        <header class="card-header">
+                            Stato dei nodi
+                        </header>
+                        <div class="card-block">
+                            <div id="donut-chart"></div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-lg-4">
+                    <section class="card">
+                        <header class="card-header">
+                            Nodi messi al sicuro
+                        </header>
+                        <div class="card-block">
+                            <div id="gauge-chart"></div>
+                        </div>
+                    </section>
+                </div>
+
+			</div><!--.col-->
+		</div>
+	</div><!--.container-fluid-->
+</div><!--.page-content-->

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>StartUI - Premium Bootstrap 4 Admin Dashboard Template</title>
+
+    <link href="img/favicon.144x144.html" rel="apple-touch-icon" type="image/png" sizes="144x144">
+    <link href="img/favicon.114x114.html" rel="apple-touch-icon" type="image/png" sizes="114x114">
+    <link href="img/favicon.72x72.html" rel="apple-touch-icon" type="image/png" sizes="72x72">
+    <link href="img/favicon.57x57.html" rel="apple-touch-icon" type="image/png">
+    <link href="img/favicon.html" rel="icon" type="image/png">
+    <link href="img/favicon-2.html" rel="shortcut icon">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/loginBundle/css/separate/pages/login.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/loginBundle/css/lib/font-awesome/font-awesome.min.css"); ?>">
+    <link rel="stylesheet"
+          href="<?php echo $this->baseUrl("public/loginBundle/css/lib/bootstrap/bootstrap.min.css"); ?>">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/loginBundle/css/main.css"); ?>">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/loginBundle/css/alert.css"); ?>">
+
+    <style>
+        #login {
+            margin-left: -30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-center">
+    <div class="page-center-in">
+        <div class="container-fluid">
+            <div class="sign-box">
+                <div class="sign-avatar">
+                    <img src="<?php echo $this->baseUrl("public/loginBundle/img/avatar-sign.png"); ?>" alt="">
+                </div>
+                <header class="sign-title">Entra in Aegis</header>
+                <?php echo $this->loginForm; ?>
+                <br>
+                <p class="sign-note">Non hai ancora un account? <a href="sign-up.html">Registrati ora!</a></p>
+            </div>
+
+
+        </div>
+    </div>
+</div><!--.page-center-->
+
+
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/lib/jquery/jquery.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/lib/tether/tether.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/lib/bootstrap/bootstrap.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/plugins.js"); ?>"></script>
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl("public/loginBundle/js/lib/match-height/jquery.matchHeight.min.js"); ?>"></script>
+<script>
+    $(function () {
+        $('.page-center').matchHeight({
+            target: $('html')
+        });
+
+        $(window).resize(function () {
+            setTimeout(function () {
+                $('.page-center').matchHeight({remove: true});
+                $('.page-center').matchHeight({
+                    target: $('html')
+                });
+            }, 100);
+        });
+    });
+</script>
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/app.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/loginBundle/js/lib/jquery-validation/jquery.validate.min.js");?>"></script>
+<script>
+    $(function () {
+
+        $('#login').validate({
+            rules: {
+                username:{
+                    required:true,
+                    minlength: 2
+                },
+                password:{
+                    required:true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                username:{
+                    required:"Inserisci un username per continuare",
+                    minlength: "L'username è composto da almeno due caratteri"
+                },
+                password:{
+                    required:"Inserisci una password per continuare",
+                    minlength: "La password è composto da almeno due caratteri"
+                }
+
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+    });
+</script>
+</body>
+
+
+</html>

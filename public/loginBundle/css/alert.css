@@ -1,0 +1,19 @@
+.formerror{
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    font-size:18px;
+    text-align:center;
+    margin-left:25px;
+}
+.errors{
+    color:#b94a48;
+    text-align:center;
+    font-size:16px;
+}
+.error{
+    border-color: #fb6b4a;
+}
+input.error{
+    background-color: #feecec;
+}
