@@ -8,19 +8,37 @@ class Application_Model_Trappola
     {
         $this->tabella = new Application_Model_DbTable_Trappola();
     }
-
-
-
-
-
-    public function getTrappole()
+    
+    public function elencoTrappole()
     {
         return $this->tabella->fetchAll();
     }
 
+
+    public function getTrappolaById($id)
+    {
+        return $this->tabella->find($id);
+    }
+
+    public function inserisciTrappola($dati)
+    {
+        return $this->tabella->insert($dati);
+    }
+
+    public function modificaTrappola($dati, $id)
+    {
+        return $this->tabella->update($dati, "idtrappola = '$id");
+    }
+
+    public function eliminaTrappola($id)
+    {
+        return $this->tabella->delete("idtrappola = '$id");
+    }
+    
+
     public function getTrappolaMedia()
     {
-        $trappola = $this->getTrappole();
+        $trappola = $this->elencoTrappole();
         $somma = 0;
         foreach ($trappola as $dato){
             $somma += $dato->conta;
@@ -31,7 +49,7 @@ class Application_Model_Trappola
 
     public function getGraficoTrappola()
     {
-        $risultati = $this->getTrappole();
+        $risultati = $this->elencoTrappole();
         $numero = "['mosche',";
         $date = "['dateMosche',";
         $limite = count($risultati);
