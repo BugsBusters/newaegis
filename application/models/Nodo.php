@@ -9,9 +9,27 @@ class Application_Model_Nodo
         $this->tabella = new Application_Model_DbTable_Nodo();
     }
 
-    public function getNodi(){
+    public function elencoNodi(){
         return $this->tabella->fetchAll();
     }
+
+    public function getNodoById($id){
+        return $this->tabella->find($id);
+    }
+
+    public function inserisciNodo($dati){
+        return $this->tabella->insert($dati);
+    }
+    public function modificaNodo($dati,$id){
+        return $this->tabella->update($dati,"idnodo = '$id");
+    }
+
+    public function eliminaNodo($id){
+        return $this->tabella->delete("idnodo = '$id");
+    }
+    
+
+    /** METODI NON DI BASE  */
 
     public function getNodiSicuri(){
         $sql = $this->tabella->select()
@@ -50,7 +68,7 @@ class Application_Model_Nodo
 
     public function getNodiSicuriPercentuale(){
 
-        $numeroNodi = count($this->getNodi());
+        $numeroNodi = count($this->elencoNodi());
         $numeroNodiSicuri = count($this->getNodiSicuri());
         //calcola la percentuale
         return $percentualeNodiSicuri = ($numeroNodiSicuri * 100 / $numeroNodi);
@@ -58,7 +76,7 @@ class Application_Model_Nodo
 
     public function getNodiAllertatiPercentuale(){
 
-        $numeroNodi = count($this->getNodi());
+        $numeroNodi = count($this->elencoNodi());
         $numeroNodiAllertati = count($this->getNodiAllertati());
         //calcola la percentuale
         return $percentualeNodiSicuri = ($numeroNodiAllertati * 100 / $numeroNodi);
@@ -66,7 +84,7 @@ class Application_Model_Nodo
 
     public function getNodiPericolosiPercentuale(){
 
-        $numeroNodi = count($this->getNodi());
+        $numeroNodi = count($this->elencoNodi());
         $numeroNodiPericolosi = count($this->getNodiPericolosi());
         //calcola la percentuale
         return $percentualeNodiSicuri = ($numeroNodiPericolosi * 100 / $numeroNodi);
@@ -74,7 +92,7 @@ class Application_Model_Nodo
 
     public function getNodiMalfunzionantiPercentuale(){
 
-        $numeroNodi = count($this->getNodi());
+        $numeroNodi = count($this->elencoNodi());
         $numeroNodiMalfunzionanti = count($this->getNodiMalfunzionanti());
         //calcola la percentuale
         return $percentualeNodiSicuri = ($numeroNodiMalfunzionanti * 100 / $numeroNodi);
