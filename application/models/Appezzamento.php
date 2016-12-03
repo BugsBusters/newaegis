@@ -9,7 +9,7 @@ class Application_Model_Appezzamento
         $this->tabella = new Application_Model_DbTable_Appezzamento();
     }
 
-    public function getAppezzamenti()
+    public function elencoAppezzamenti()
     {
         return $this->tabella->fetchAll();
     }
