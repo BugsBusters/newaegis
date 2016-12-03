@@ -16,6 +16,7 @@
           <actionMethod actionName="modificaprofilo"/>
           <actionMethod actionName="impostazioniSensori"/>
           <actionMethod actionName="gestioneUliveti"/>
+          <actionMethod actionName="visualizzaAppezzamento"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -84,6 +85,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="gestioneUliveti"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="visualizzaAppezzamento"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="visualizzaUliveto"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

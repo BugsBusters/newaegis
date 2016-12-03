@@ -22,8 +22,8 @@ class UserController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('control-panel');
         $this->_authService = new Application_Service_Auth();
         $this->_utenteCorrente = $this->_authService->getIdentity()->current();
-        $this->view->assign("ruolo",$this->_utenteCorrente->ruolo);
-        $this->view->assign("modificaProfiloForm",$this->modificaprofiloAction());
+        $this->view->assign("ruolo", $this->_utenteCorrente->ruolo);
+        $this->view->assign("modificaProfiloForm", $this->modificaprofiloAction());
 
     }
 
@@ -36,28 +36,28 @@ class UserController extends Zend_Controller_Action
         $this->_nodoModel = new Application_Model_Nodo();
 
         // INIZIALIZZO LA VIEW
-        $this->view->assign("currentPage","user/index");
+        $this->view->assign("currentPage", "user/index");
 
         // ASSEGNO ALLA VIEW I DATI MEDI (PER I 3 BOX)
-        $this->view->assign("temperaturaMedia",$this->_temperaturaModel->getTemperaturaMedia());
-        $this->view->assign("umiditaMedia",$this->_umiditaModel->getUmiditaMedia());
-        $this->view->assign("trappolaMedia",$this->_trappolaModel->getTrappolaMedia());
+        $this->view->assign("temperaturaMedia", $this->_temperaturaModel->getTemperaturaMedia());
+        $this->view->assign("umiditaMedia", $this->_umiditaModel->getUmiditaMedia());
+        $this->view->assign("trappolaMedia", $this->_trappolaModel->getTrappolaMedia());
 
         // ASSEGNO ALLA VIEW I DATI DI UMIDITA E MOSCHE DA PLOTTARE GRAFICAMENTE
         $datiGraficoUmidita = $this->_umiditaModel->getGraficoUmidita();
-        $this->view->assign("dateUmidita",$datiGraficoUmidita['date']);
-        $this->view->assign("valoriUmidita",$datiGraficoUmidita['umidita']);
+        $this->view->assign("dateUmidita", $datiGraficoUmidita['date']);
+        $this->view->assign("valoriUmidita", $datiGraficoUmidita['umidita']);
         $datiGraficoMosche = $this->_trappolaModel->getGraficoTrappola();
-        $this->view->assign("valoriMosche",$datiGraficoMosche['mosche']);
+        $this->view->assign("valoriMosche", $datiGraficoMosche['mosche']);
 
         //RICEVO LE STATISTICHE SUI NODI DAL MODEL
         $datiNodi = $this->_nodoModel->getPercentualiStatiNodi();
 
         //ASSEGNO ALLA VIEW I DATI PER IL GAUGE CHART (PERCENTUALE NODI SICURI)
-        $this->view->assign("percentualeSicuri",$datiNodi['sicuri']);
-        $this->view->assign("percentualeAllertati",$datiNodi['allertati']);
-        $this->view->assign("percentualePericolosi",$datiNodi['pericolosi']);
-        $this->view->assign("percentualeMalfunzionanti",$datiNodi['malfunzionanti']);
+        $this->view->assign("percentualeSicuri", $datiNodi['sicuri']);
+        $this->view->assign("percentualeAllertati", $datiNodi['allertati']);
+        $this->view->assign("percentualePericolosi", $datiNodi['pericolosi']);
+        $this->view->assign("percentualeMalfunzionanti", $datiNodi['malfunzionanti']);
 
 
     }
@@ -90,13 +90,13 @@ class UserController extends Zend_Controller_Action
         }
         $dati = $this->_modificaProfiloForm->getValues();
         //VERIFICO SE LA PASSWORD È VUOTA. SE E VUOTA NON DEVO MODIFICARLA
-        if($dati['password']=="")
+        if ($dati['password'] == "")
             unset($dati['password']);
         //TOLGO IL CAMPO CONFERMA PASSWORD DALLA FORM (NON DEVO CARICARE IL SUO VALORE NEL DB)
         unset($dati['rpassword']);
 
         $utenteModel = new Application_Model_Utente();
-        $utenteModel->updateUtente($dati,$this->_utenteCorrente->idutente);
+        $utenteModel->updateUtente($dati, $this->_utenteCorrente->idutente);
         $this->_helper->redirector('index');
 
     }
@@ -117,13 +117,27 @@ class UserController extends Zend_Controller_Action
         $uliveto = new Application_Model_Uliveto();
         $paginatoreUlivi = new Zend_Paginator(new Zend_Paginator_Adapter_Array($uliveto->getUliveti()->toArray()));
         $paginatoreUlivi->setItemCountPerPage(4);
-        $paginatoreUlivi->setCurrentPageNumber($this->getParam("pagina",1));
-        $this->view->assign("elencoUliveti",$paginatoreUlivi);
+        $paginatoreUlivi->setCurrentPageNumber($this->getParam("pagina", 1));
+        $this->view->assign("elencoUliveti", $paginatoreUlivi);
 
+    }
+
+    public function visualizzaAppezzamentoAction()
+    {
+        if ($this->hasParam("uliveto")) {
+            $appezzamentoModel = new Application_Model_Appezzamento();
+
+
+        } else
+            $this->_helper->redirector('index', 'user');
     }
 
 
 }
+
+
+
+
 
 
 

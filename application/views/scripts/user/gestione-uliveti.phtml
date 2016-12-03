@@ -14,7 +14,11 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-warning"><?php echo $uliveto['descrizione']; ?></button>
+                            <a href="<?php echo $this->url(array(
+                                    'controller' => 'user',
+                                    'action' => 'visualizza-appezzamenti',
+                                    'uliveto' => $uliveto['iduliveto']
+                            ),null,true)?>"><button class="btn btn-warning"><?php echo $uliveto['descrizione']; ?></button></a>
                         </div>
                         <br>
                     </section>
