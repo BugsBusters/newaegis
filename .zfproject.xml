@@ -18,6 +18,7 @@
           <actionMethod actionName="gestioneUliveti"/>
           <actionMethod actionName="visualizzaAppezzamento"/>
           <actionMethod actionName="visualizzaNodi"/>
+          <actionMethod actionName="datiNodo"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -95,6 +96,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="visualizzaNodi"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="datiNodo"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -151,8 +151,22 @@ class UserController extends Zend_Controller_Action
             $this->_helper->redirector('index', 'user');
     }
 
+    public function datiNodoAction()
+    {
+        if($this->hasParam("nodo")){
+            $stringa = "Stai visualizzando il nodo ".$this->getParam("nodo") . "<br> Ecco i dati del nodo: <br>";
+            $nodoModel = new Application_Model_Nodo();
+            $nodo = $nodoModel->getNodoById($this->getParam("nodo"))->current()->toArray();
+            $this->view->dati = $nodo;
+            $this->view->stringa = $stringa;
+
+        }
+    }
+
 
 }
+
+
 
 
 

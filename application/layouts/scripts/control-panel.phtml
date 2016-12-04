@@ -225,7 +225,8 @@
 <script src="<?php echo $this->baseUrl("public/commonBundle/js/plugins.js"); ?>"></script>
 
 <script type="text/javascript"
-        src="<?php echo $this->baseUrl("public/commonBundle/js/lib/jqueryui/jquery-ui.min.js"); ?>"></script>
+        src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+
 <script type="text/javascript"
         src="<?php echo $this->baseUrl("public/commonBundle/js/lib/lobipanel/lobipanel.min.js"); ?>"></script>
 <script type="text/javascript"
@@ -329,13 +330,13 @@
         });
     </script>
 <?php endif; ?>
-<?php if ($this->currentPage == "user/visualizzanodi"): ?>
+<?php if ($this->currentPage == "user/visualizzanodi"):?>
 
 
     <script>
 
         $("document").ready(function () {
-            
+
 
             <?php foreach ($this->elencoNodi as $nodo):
             $id = "#nodo" . $nodo->idnodo; //definisco l'identificatore
@@ -349,7 +350,6 @@
                     top: (windowHeight/topRatio)
                 });
             <?php endforeach; ?>
-
 
         });
 
