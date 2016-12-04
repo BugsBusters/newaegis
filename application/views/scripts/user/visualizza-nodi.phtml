@@ -1,0 +1,44 @@
+<div class="page-content aegis-page text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 text-center">
+                <section id="blockui-element-container-default" class="card">
+                    <header class="card-header text-center">
+                        <?php echo $this->datiAppezzamento->nome; ?>
+                    </header>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="card-block display-table text-center" style="max-height: 50px">
+                        <div class="col-md-12">
+                            <img class="map" src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>"
+                                 width="60%">
+                        </div>
+                        <div class="col-md-12">
+                            <?php
+                            foreach ($this->elencoNodi as $nodo):?>
+                                <a class="tree-a" href="<?php echo $this->url(array(
+                                    'controller' => "user",
+                                    'action' => 'dati-nodo',
+                                    'nodo' => $nodo['idnodo']
+                                ))?>"><img id="<?php echo "nodo".$nodo['idnodo'];?>" class="tree" src="<?php
+                                    if($nodo['statonodo']==0)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg");
+                                    if($nodo['statonodo']==1)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-orange.svg");
+                                    if($nodo['statonodo']==2)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-red.svg");
+                                    if($nodo['statonodo']==3)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-grey.svg");
+                                    ?>"></a>
+                                <?php
+                            endforeach;
+                            ?>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+    </div><!--.container-fluid-->

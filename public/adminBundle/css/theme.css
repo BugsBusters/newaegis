@@ -80,6 +80,9 @@ body{
 .hidden {
     display:none;
 }
+.tree{
+    width:75px;
+}
 
 
 

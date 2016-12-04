@@ -17,6 +17,12 @@ class Application_Model_Nodo
         return $this->tabella->find($id);
     }
 
+    public function getNodoByAppezzamento($idappezzamento){
+        $sql = $this->tabella->select()
+                             ->where("idappezzamento = ?",$idappezzamento);
+        return $this->tabella->fetchAll($sql);
+    }
+
     public function inserisciNodo($dati){
         return $this->tabella->insert($dati);
     }

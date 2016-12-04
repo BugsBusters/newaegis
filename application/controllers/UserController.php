@@ -115,7 +115,7 @@ class UserController extends Zend_Controller_Action
     public function gestioneUlivetiAction()
     {
         $uliveto = new Application_Model_Uliveto();
-        $paginatoreUlivi = new Zend_Paginator(new Zend_Paginator_Adapter_Array($uliveto->getUliveti()->toArray()));
+        $paginatoreUlivi = new Zend_Paginator(new Zend_Paginator_Adapter_Array($uliveto->elencoUliveti()->toArray()));
         $paginatoreUlivi->setItemCountPerPage(4);
         $paginatoreUlivi->setCurrentPageNumber($this->getParam("pagina", 1));
         $this->view->assign("elencoUliveti", $paginatoreUlivi);
@@ -126,7 +126,26 @@ class UserController extends Zend_Controller_Action
     {
         if ($this->hasParam("uliveto")) {
             $appezzamentoModel = new Application_Model_Appezzamento();
+            $elencoAppezzamenti = $appezzamentoModel->getAppezzamentiByUliveto($this->getParam("uliveto"));
+            $paginatoreAppezzamenti = new Zend_Paginator(new Zend_Paginator_Adapter_Array($elencoAppezzamenti->toArray()));
+            $paginatoreAppezzamenti->setItemCountPerPage(4);
+            $paginatoreAppezzamenti->setCurrentPageNumber($this->getParam("pagina", 1));
+            $this->view->assign("elencoAppezzamenti", $paginatoreAppezzamenti);
+        } else
+            $this->_helper->redirector('index', 'user');
+    }
 
+    public function visualizzaNodiAction()
+    {
+        if ($this->hasParam("appezzamento")) {
+            $nodoModel = new Application_Model_Nodo();
+            $elencoNodi = $nodoModel->getNodoByAppezzamento($this->getParam("appezzamento"));
+            $appezzamentoModel = new Application_Model_Appezzamento();
+            $datiAppezzamento = $appezzamentoModel->getAppezzamentoById($this->getParam("appezzamento"));
+            $this->view->assign("elencoNodi", $elencoNodi);
+            $this->view->assign("currentPage", "user/visualizzanodi");
+            $this->view->assign("datiAppezzamento", $datiAppezzamento->current());
+            $this->view->assign("currentPage", "user/visualizzanodi");
 
         } else
             $this->_helper->redirector('index', 'user');
@@ -134,6 +153,8 @@ class UserController extends Zend_Controller_Action
 
 
 }
+
+
 
 
 

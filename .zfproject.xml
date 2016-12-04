@@ -17,6 +17,7 @@
           <actionMethod actionName="impostazioniSensori"/>
           <actionMethod actionName="gestioneUliveti"/>
           <actionMethod actionName="visualizzaAppezzamento"/>
+          <actionMethod actionName="visualizzaNodi"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -91,6 +92,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="visualizzaUliveto"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="visualizzaNodi"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

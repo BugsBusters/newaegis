@@ -1,1 +1,15 @@
-<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375.44 504.44"><defs><style>.cls-1{fill:#846a44;}.cls-2{fill:#bc4a4a;}.cls-3{fill:#c43030;}.cls-4{fill:#e86060;}</style></defs><title>tree-red</title><path class="cls-1" d="M301.35,269.29l-68.53,76.63,11.82,153.14s-11.35,9.32-33.41,9.16-32.68-6.11-32.68-6.11V348L91,281.9,110.16,273l68.39,46.73V240h44l6.15,86.58,63.15-69.27Z" transform="translate(-4.67 -3.79)"/><path class="cls-2" d="M380,223.8a67.49,67.49,0,1,1-63.05-71.66A67.49,67.49,0,0,1,380,223.8Z" transform="translate(-4.67 -3.79)"/><path class="cls-3" d="M179.52,206.24a87.42,87.42,0,1,1-87.43-87.42A87.44,87.44,0,0,1,179.52,206.24Z" transform="translate(-4.67 -3.79)"/><path class="cls-4" d="M332.85,147.12A143.34,143.34,0,1,1,189.51,3.79,143.34,143.34,0,0,1,332.85,147.12Z" transform="translate(-4.67 -3.79)"/></svg>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375.44 504.44">
+    <defs>
+        <style>.cls-1{fill:#846a44;}.cls-2{fill:#bc4a4a;}.cls-3{fill:#c43030;}.cls-4{fill:#e86060;}</style>
+    </defs>
+    <title>tree-red</title>
+    <path class="cls-1"
+          d="M301.35,269.29l-68.53,76.63,11.82,153.14s-11.35,9.32-33.41,9.16-32.68-6.11-32.68-6.11V348L91,281.9,110.16,273l68.39,46.73V240h44l6.15,86.58,63.15-69.27Z"
+          transform="translate(-4.67 -3.79)"/>
+    <path class="cls-2" d="M380,223.8a67.49,67.49,0,1,1-63.05-71.66A67.49,67.49,0,0,1,380,223.8Z"
+          transform="translate(-4.67 -3.79)"/>
+    <path class="cls-3" d="M179.52,206.24a87.42,87.42,0,1,1-87.43-87.42A87.44,87.44,0,0,1,179.52,206.24Z"
+          transform="translate(-4.67 -3.79)"/>
+    <path class="cls-4" d="M332.85,147.12A143.34,143.34,0,1,1,189.51,3.79,143.34,143.34,0,0,1,332.85,147.12Z"
+          transform="translate(-4.67 -3.79)"/>
+</svg>
