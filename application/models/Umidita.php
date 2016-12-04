@@ -39,7 +39,7 @@ class Application_Model_Umidita
     /**
      * @return float|int ritoorna la media delle umidita
      */
-    public function elencoUmiditaMedia()
+    public function getUmiditaMedia()
     {
         //inizializzo somma e umidità. Umidità contiene l'elenco delle umidità
         $umidità = $this->elencoUmidita();
