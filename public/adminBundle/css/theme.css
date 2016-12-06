@@ -84,9 +84,65 @@ body{
     width:8% !important
 }
 
+.page-item.active .page-link, .page-item.active .page-link:focus, .page-item.active .page-link:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #b7ad8f;
+    border-color: #acb985
+}
 
+a, a:focus, a:hover {
+    color: #5c6b4c;
+    text-decoration: none;
+    cursor: pointer
+}
 
+.btn.btn-uliveto {
+    background-color: #4a303d;
+    border-color: #4a303d
+}
 
+.btn.btn-uliveto:hover {
+    background-color: #967385;
+    border-color: #967385
+}
 
+.page-link {
+    border-color: #b7ad8f;
+    color: #b3ad79
+}
 
+.page-link:focus, .page-link:hover {
+    background-color: #f6f8fa;
+    color: #5c6b4c
+}
 
+.page-item.active .page-link {
+    border-color: #5c6b4c !important;
+    background-color: #b3ad79 !important
+}
+
+.site-header .user-menu.dropdown .dropdown-toggle:hover, .site-header .user-menu.dropdown.open .dropdown-toggle {
+    color: #f9ffea
+}
+
+.dropdown-item .font-icon {
+    margin: 0 8px 0 0;
+    color: #c9b32c;
+    transition: all .2s ease-in-out;
+    font-size: 16px;
+    vertical-align: middle;
+    line-height: 16px;
+    position: relative;
+    top: -1px
+}
+
+.dropdown-item.current, .dropdown-item:hover {
+    background: 0 0;
+    color: #9e8907;
+}
+
+.dropdown-item.current .font-icon, .dropdown-item:hover .font-icon {
+    color:  #9e8907;
+}
