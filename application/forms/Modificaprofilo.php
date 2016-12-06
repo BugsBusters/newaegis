@@ -59,7 +59,7 @@ class Application_Form_Modificaprofilo extends Zend_Form
 
 
         $this->addElement('submit', 'Modifica', array(
-            'class' => 'btn btn-rounded btn-inline btn-warning center-div',
+            'class' => 'btn btn-rounded btn-inline btn-uliveto center-div',
             'label' => 'Modifica il tuo profilo'
         ));
 
