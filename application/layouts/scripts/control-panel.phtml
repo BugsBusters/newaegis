@@ -50,7 +50,7 @@
 
         <a href="#" class="site-logo">
             <img class="hidden-md-down" src="<?php echo $this->baseUrl("public/adminBundle/img/logo-2.png"); ?>" alt="">
-            <img class="hidden-lg-up" src="<?php echo $this->baseUrl("public/adminBundle/img/logo-2-mob.png"); ?>"
+            <img class="hidden-lg-up" style="display:block;" src="<?php echo $this->baseUrl("public/adminBundle/img/logo-2-mob.png"); ?>"
                  alt="">
         </a>
 
@@ -225,7 +225,7 @@
 <script src="<?php echo $this->baseUrl("public/commonBundle/js/plugins.js"); ?>"></script>
 
 <script type="text/javascript"
-        src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+        src="<?php echo $this->baseUrl("public/commonBundle/js/lib/jqueryui/jquery-ui.min.js"); ?>"></script>
 
 <script type="text/javascript"
         src="<?php echo $this->baseUrl("public/commonBundle/js/lib/lobipanel/lobipanel.min.js"); ?>"></script>
@@ -331,32 +331,28 @@
     </script>
 <?php endif; ?>
 <?php if ($this->currentPage == "user/visualizzanodi"):?>
-
-
     <script>
-
-        $("document").ready(function () {
-
-
-            <?php foreach ($this->elencoNodi as $nodo):
-            $id = "#nodo" . $nodo->idnodo; //definisco l'identificatore
-            ?>
-            var windowWidth = $(window).width();
-            var windowHeight = $(window).height();
-            var leftRatio = <?php echo $nodo->rleft.";"; ?>
-            var topRatio = <?php echo $nodo->rtop.";"; ?>
-                $("<?php echo $id; ?>").offset({
-                    left: (windowWidth/leftRatio),
-                    top: (windowHeight/topRatio)
-                });
-            <?php endforeach; ?>
-
+        var tree = $('.tree');
+       tree.draggable( {
+            cursor: 'move',
+            containment: 'document',
+            stop: handleDragStop
         });
+
+        function handleDragStop(){
+
+            console.log("width:",$(".map").width())
+            console.log("height:",$(".map").height())
+            console.log("tree:",$(".tree").position())
+        }
+
+        $(window).resize(function(){
+            $('.tree').css("width",$(window).width()*0.08);
+        })
+
 
 
     </script>
-
-
 <?php endif; ?>
 </body>
 

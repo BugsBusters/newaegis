@@ -81,8 +81,12 @@ body{
     display:none;
 }
 .tree{
-    width:8%;
+    width:8% !important
 }
+
+
+
+
 
 
 
