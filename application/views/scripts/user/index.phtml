@@ -96,3 +96,94 @@
 		</div>
 	</div><!--.container-fluid-->
 </div><!--.page-content-->
+
+<script>
+    var chart = c3.generate({
+        "bindto": '#area-chart',
+        data: {
+            xs: {
+                'umidita': 'date',
+                'mosche': 'date'
+            },
+            colors: {
+                umidita: '#c9b32c',
+                mosche: '#46c35f'
+            },
+            types: {
+                umidita: 'area-spline',
+                mosche: 'area-spline'
+            },
+            columns: [
+                <?php echo $this->dateUmidita; ?>
+                <?php echo $this->valoriUmidita; ?>
+                <?php echo $this->valoriMosche; ?>
+            ]
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%d-%m-%Y'
+                }
+            }
+        }
+    });
+</script>
+<script>var pieChart = c3.generate({
+        bindto: '#pie-chart',
+        data: {
+            columns: [
+                ['funzionanti', <?php echo ($this->percentualeSicuri + $this->percentualeAllertati + $this->percentualePericolosi) ; ?>],
+                ['difettosi', <?php echo $this->percentualeMalfunzionanti; ?>]
+            ],
+            type: 'pie',
+            colors: {
+                funzionanti: '#2ecc71',
+                difettosi: '#95a5a6'
+            }
+        }
+    });
+</script>
+<script>
+    var donutChart = c3.generate({
+        bindto: '#donut-chart',
+        data: {
+            columns: [
+                ['sicuri', <?php echo $this->percentualeSicuri; ?>],
+                ['allertati', <?php echo $this->percentualeAllertati; ?>],
+                ['insicuri', <?php echo $this->percentualePericolosi; ?>],
+            ],
+            type: 'donut',
+            colors: {
+                sicuri: '#2ecc71',
+                allertati: '#e67e22',
+                insicuri: '#e74c3c'
+            }
+        },
+        donut: {
+            title: "Stato dei nodi"
+        },
+
+    });
+</script>
+<script>
+    var gaugeChart = c3.generate({
+        bindto: '#gauge-chart',
+        data: {
+            columns: [
+                ['data', <?php echo $this->percentualeSicuri; ?>]
+            ],
+            type: 'gauge',
+        },
+        gauge: {},
+        color: {
+            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+            threshold: {
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+</script>

@@ -41,3 +41,30 @@
         </div>
 
     </div><!--.container-fluid-->
+
+    <script>
+        $(document).ready(function () {
+            // DICHIARO GLI ALBERI E INIZIALIZZO LE COORDINATE
+            var tree = $('.tree');
+            var map = $(".map");
+            var x = 0;
+            var y = 0;
+
+
+
+            <?php foreach ($this->elencoNodi as $nodo):
+            $id = "#nodo" . $nodo->idnodo; //definisco l'identificatore
+            ?>
+            //setto la posizione per ogni nodo generato automaticamente
+            setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, map);
+            <?php
+            endforeach;
+            ?>
+
+            $(window).resize(function () {
+                location.reload();
+            });
+
+
+        });
+    </script>
