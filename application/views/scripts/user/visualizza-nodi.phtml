@@ -14,7 +14,25 @@
                             <img class="map" src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>" width="60%">
                             <br>
                             <br>
-                            <img id="nodo1" class="tree" src="<?php echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg"); ?>">
+                            <?php
+                            foreach ($this->elencoNodi as $nodo):?>
+                                <a class="tree-a" href="<?php echo $this->url(array(
+                                    'controller' => "user",
+                                    'action' => 'dati-nodo',
+                                    'nodo' => $nodo['idnodo']
+                                ))?>"><img id="<?php echo "nodo".$nodo['idnodo'];?>" class="tree" src="<?php
+                                    if($nodo['statonodo']==0)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg");
+                                    if($nodo['statonodo']==1)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-orange.svg");
+                                    if($nodo['statonodo']==2)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-red.svg");
+                                    if($nodo['statonodo']==3)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-grey.svg");
+                                    ?>"></a>
+                                <?php
+                            endforeach;
+                            ?>
                         </div>
                     </div>
                 </section>

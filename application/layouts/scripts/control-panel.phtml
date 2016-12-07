@@ -240,6 +240,7 @@
 <script src="<?php echo $this->baseUrl("public/commonBundle/js/lib/charts-c3js/c3.min.js"); ?>"></script>
 <!--<script src="<?php echo $this->baseUrl("public/commonBundle/js/lib/charts-c3js/c3js-init.js"); ?>"></script>-->
 <script src="<?php echo $this->baseUrl("public/commonBundle/js/lib/jquery-validation/jquery.validate.min.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/adminBundle/js/nodo.js"); ?>"></script>
 
 <?php if ($this->currentPage == 'user/index'): ?>
     <script>
@@ -335,56 +336,32 @@
 <?php endif; ?>
 <?php if ($this->currentPage == "user/visualizzanodi"):?>
     <script>
-        var tree = $('.tree');
-        var map = $(".map");
-        var x = 0;
-        var y = 0;
-        $('.tree').css("width",$(window).width()*0.08);
-       tree.draggable( {
-            cursor: 'move',
-            containment: 'document',
-            stop: handleDragStop
+        $(document).ready(function() {
+            var tree = $('.tree');
+            var map = $(".map");
+            console.log(map.width());
+            console.log(map.height());
+            console.log(map.offset());
+            var x = 0;
+            var y = 0;
+            $('.tree').css("width", $(window).width() * 0.08);
+
+
+
+            <?php foreach ($this->elencoNodi as $nodo):
+            $id = "#nodo" . $nodo->idnodo; //definisco l'identificatore
+            ?>
+            setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>,map);
+
+            <?php
+            endforeach;
+            ?>
+            $(window).resize(function(){
+               location.reload();
+            });
+
+
         });
-
-        function handleDragStop(){
-            //1 position(t) = offset(t) - offset(m)
-            //2 x = position(t) / width
-            //3 y = position(t) / height
-            console.log("map-width:",map.width());
-            console.log("map-height:",map.height());
-
-            var treePosition = {
-                top:  tree.offset().top - map.offset().top,
-                left: tree.offset().left - map.offset().left,
-            };
-            console.log("tree-offset",tree.offset());
-            console.log("map-offset", map.offset());
-            console.log("----------------");
-            console.log("tree-position:",treePosition);
-
-            x = treePosition.left / map.width();
-            y = treePosition.top / map.height();
-
-            console.log("x=",x);
-            console.log("y=",y);
-        }
-
-        $(window).resize(function(){
-            console.log("new map offset",map.offset());
-            var treePosition = {
-                top: y*map.height(),
-                left: x*map.width()
-            }
-            tree.offset({
-                top: treePosition.top + map.offset().top,
-                left: treePosition.left + map.offset().left
-            })
-
-
-        })
-
-
-
     </script>
 <?php endif; ?>
 </body>
