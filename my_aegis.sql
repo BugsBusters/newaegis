@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 03, 2016 alle 11:05
+-- Creato il: Dic 07, 2016 alle 22:15
 -- Versione del server: 10.1.19-MariaDB
 -- Versione PHP: 7.0.13
 
@@ -63,18 +63,20 @@ CREATE TABLE `nodo` (
   `statonodo` int(1) NOT NULL,
   `indice-posizione` varchar(1) COLLATE utf8_bin NOT NULL,
   `gprs` tinyint(1) NOT NULL,
-  `idappezzamento` int(3) NOT NULL
+  `idappezzamento` int(3) NOT NULL,
+  `x` text COLLATE utf8_bin,
+  `y` text COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dump dei dati per la tabella `nodo`
 --
 
-INSERT INTO `nodo` (`idnodo`, `statonodo`, `indice-posizione`, `gprs`, `idappezzamento`) VALUES
-(1, 0, 'A', 1, 1),
-(8, 1, 'a', 0, 1),
-(9, 2, 'a', 0, 1),
-(10, 3, 'a', 0, 1);
+INSERT INTO `nodo` (`idnodo`, `statonodo`, `indice-posizione`, `gprs`, `idappezzamento`, `x`, `y`) VALUES
+(1, 3, 'A', 1, 1, '0.4244791666666667', '-0.125'),
+(2, 2, 'a', 0, 1, '0.668206765232975', '0.1611842105263158'),
+(3, 2, 'a', 0, 1, '0.41193436379928317', '0.42105263157894735'),
+(4, 3, 'a', 0, 1, '0.09971438172043011', '0.14473684210526316');
 
 -- --------------------------------------------------------
 
@@ -321,7 +323,7 @@ ALTER TABLE `componente`
 -- AUTO_INCREMENT per la tabella `nodo`
 --
 ALTER TABLE `nodo`
-  MODIFY `idnodo` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idnodo` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT per la tabella `notifica`
 --
