@@ -78,5 +78,11 @@ class Application_Model_Umidita
 
     }
 
+    public function getUmiditaByNodo($idnodo){
+        $sql = $this->tabella->select()
+            ->where("idnodo = ?",$idnodo);
+        return $this->tabella->fetchAll($sql);
+    }
+
 }
 

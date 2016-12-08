@@ -27,7 +27,7 @@ class Application_Form_Login extends Zend_Form
             'placeholder'   => 'Inserisci la password',
         ));
         $this->addElement('submit', 'Login', array(
-            'class'         => 'btn btn-rounded',
+            'class'         => 'btn btn-rounded btn-uliveto',
         ));
         $this->setDecorators(array(
             'FormElements',

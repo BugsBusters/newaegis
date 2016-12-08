@@ -72,5 +72,11 @@ class Application_Model_Trappola
 
     }
 
+    public function getTrappoleByNodo($idnodo){
+        $sql = $this->tabella->select()
+            ->where("idnodo = ?",$idnodo);
+        return $this->tabella->fetchAll($sql);
+    }
+
 }
 

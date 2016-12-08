@@ -3,13 +3,6 @@
 class UserController extends Zend_Controller_Action
 {
 
-    protected $_temperaturaModel = null;
-
-    protected $_umiditaModel = null;
-
-    protected $_trappolaModel = null;
-
-    protected $_nodoModel = null;
 
     protected $_utenteCorrente = null;
 
@@ -30,28 +23,28 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // INIZIALIZZO I MODEL
-        $this->_temperaturaModel = new Application_Model_Temperatura();
-        $this->_umiditaModel = new Application_Model_Umidita();
-        $this->_trappolaModel = new Application_Model_Trappola();
-        $this->_nodoModel = new Application_Model_Nodo();
+        $temperaturaModel = new Application_Model_Temperatura();
+        $umiditaModel = new Application_Model_Umidita();
+        $trappolaModel = new Application_Model_Trappola();
+        $nodoModel = new Application_Model_Nodo();
 
         // INIZIALIZZO LA VIEW
         $this->view->assign("currentPage", "user/index");
 
         // ASSEGNO ALLA VIEW I DATI MEDI (PER I 3 BOX)
-        $this->view->assign("temperaturaMedia", $this->_temperaturaModel->getTemperaturaMedia());
-        $this->view->assign("umiditaMedia", $this->_umiditaModel->getUmiditaMedia());
-        $this->view->assign("trappolaMedia", $this->_trappolaModel->getTrappolaMedia());
+        $this->view->assign("temperaturaMedia", $temperaturaModel->getTemperaturaMedia());
+        $this->view->assign("umiditaMedia", $umiditaModel->getUmiditaMedia());
+        $this->view->assign("trappolaMedia", $trappolaModel->getTrappolaMedia());
 
         // ASSEGNO ALLA VIEW I DATI DI UMIDITA E MOSCHE DA PLOTTARE GRAFICAMENTE
-        $datiGraficoUmidita = $this->_umiditaModel->getGraficoUmidita();
+        $datiGraficoUmidita = $umiditaModel->getGraficoUmidita();
         $this->view->assign("dateUmidita", $datiGraficoUmidita['date']);
         $this->view->assign("valoriUmidita", $datiGraficoUmidita['umidita']);
-        $datiGraficoMosche = $this->_trappolaModel->getGraficoTrappola();
+        $datiGraficoMosche = $trappolaModel->getGraficoTrappola();
         $this->view->assign("valoriMosche", $datiGraficoMosche['mosche']);
 
         //RICEVO LE STATISTICHE SUI NODI DAL MODEL
-        $datiNodi = $this->_nodoModel->getPercentualiStatiNodi();
+        $datiNodi = $nodoModel->getPercentualiStatiNodi();
 
         //ASSEGNO ALLA VIEW I DATI PER IL GAUGE CHART (PERCENTUALE NODI SICURI)
         $this->view->assign("percentualeSicuri", $datiNodi['sicuri']);
@@ -153,13 +146,17 @@ class UserController extends Zend_Controller_Action
 
     public function datiNodoAction()
     {
-        if($this->hasParam("nodo")){
-            $stringa = "Stai visualizzando il nodo ".$this->getParam("nodo") . "<br> Ecco i dati del nodo: <br>";
+        if ($this->hasParam("nodo")) {
             $nodoModel = new Application_Model_Nodo();
-            $nodo = $nodoModel->getNodoById($this->getParam("nodo"))->current()->toArray();
-            $this->view->dati = $nodo;
-            $this->view->stringa = $stringa;
+            $temperaturaModel = new Application_Model_Temperatura();
+            $umiditaModel = new Application_Model_Umidita();
+            $trappolaModel = new Application_Model_Trappola();
 
+            $datiNodo = $nodoModel->getNodoById($this->getParam("nodo"))->current();
+            $temperatureNodo = $temperaturaModel->getTemperatureByNodo($datiNodo->idnodo);
+            $umiditaNodo = $umiditaModel->getUmiditaByNodo($datiNodo->idnodo);
+            $trappolaNodo = $trappolaModel->getTrappoleByNodo($datiNodo->idnodo);
+            $this->view->assign("datiNodo",$datiNodo);
         }
     }
 

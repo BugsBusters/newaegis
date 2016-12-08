@@ -46,5 +46,11 @@ class Application_Model_Temperatura
         return ($somma / count($temperature));
     }
 
+    public function getTemperatureByNodo($idnodo){
+        $sql = $this->tabella->select()
+                             ->where("idnodo = ?",$idnodo);
+        return $this->tabella->fetchAll($sql);
+    }
+
 }
 
