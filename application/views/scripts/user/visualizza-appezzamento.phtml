@@ -1,7 +1,10 @@
 <div class="page-content aegis-page text-center">
     <div class="container-fluid">
         <div class="row">
-            <?php foreach ($this->elencoAppezzamenti as $appezzamento): ?>
+            <?php
+            // I = NUMERO DI APPEZZAMENTO (MI SERVE PER FAR VISUALIZZARE CORRETTAMENTE I NODI
+            $i = 0;
+            foreach ($this->elencoAppezzamenti as $appezzamento): ?>
                 <div class="col-sm-6 col-md-6">
                     <section id="blockui-element-container-default" class="card">
                         <header class="card-header text-center">
@@ -9,8 +12,9 @@
                         </header>
                         <div class="card-block display-table" style="max-height: 50px">
                             <div class="col-md-12">
-                                <img src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>"
-                                     width="100%" height="100%">
+                                <img id="map<?php echo $appezzamento['idappezzamento']; ?>"
+                                     src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>"
+                                     width="60%">
                                 <hr>
                                 <?php echo $appezzamento['note']; ?>
                             </div>
@@ -26,6 +30,22 @@
                             </a>
                         </div>
                         <br>
+                        <?php
+                        //FACCIO VISUALIZZARE I NODI
+                        foreach ($this->elencoNodi[$i] as $nodo): ?>
+                            <img id="<?php echo "nodo" . $nodo['idnodo']; ?>" class="tree" src="<?php
+                            if ($nodo['statonodo'] == 0)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg");
+                            if ($nodo['statonodo'] == 1)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-orange.svg");
+                            if ($nodo['statonodo'] == 2)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-red.svg");
+                            if ($nodo['statonodo'] == 3)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-grey.svg");
+                            ?>">
+                        <?php endforeach;
+                        $i++;
+                        ?>
                     </section>
                 </div>
             <?php endforeach; ?>
@@ -38,3 +58,31 @@
     </div><!--.container-fluid-->
 
 </div><!--.page-content-->
+
+<script>
+
+    $(document).ready(function () {
+        // DICHIARO GLI ALBERI E INIZIALIZZO LE COORDINATE
+        var x = 0;
+        var y = 0;
+
+        <?php
+        for ($i = 0; $i < count($this->elencoNodi);$i++):
+            foreach ($this->elencoNodi[$i] as $nodo):
+                $id = "#nodo" . $nodo->idnodo;
+                ?>
+                setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, $("#map<?php echo $nodo->idappezzamento; ?>"));
+                <?php
+            endforeach;
+        endfor;
+        ?>
+
+
+        $(window).resize(function () {
+            location.reload();
+        });
+
+
+    });
+
+</script>

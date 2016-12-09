@@ -121,6 +121,15 @@ class UserController extends Zend_Controller_Action
             $appezzamentoModel = new Application_Model_Appezzamento();
             $nodoModel = new Application_Model_Nodo();
             $elencoAppezzamenti = $appezzamentoModel->getAppezzamentiByUliveto($this->getParam("uliveto"));
+
+            $elencoNodiPerAppezzamento = array();
+            $i = 0;
+            foreach ($elencoAppezzamenti as $appezzamento):
+                $elencoNodiPerAppezzamento[$i] = $nodoModel->getNodoByAppezzamento($appezzamento->idappezzamento);
+                $i++;
+            endforeach;
+
+            $this->view->assign("elencoNodi",$elencoNodiPerAppezzamento);
             $paginatoreAppezzamenti = new Zend_Paginator(new Zend_Paginator_Adapter_Array($elencoAppezzamenti->toArray()));
             $paginatoreAppezzamenti->setItemCountPerPage(4);
             $paginatoreAppezzamenti->setCurrentPageNumber($this->getParam("pagina", 1));
