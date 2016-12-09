@@ -34,7 +34,7 @@ class Application_Model_Umidita
     {
         return $this->tabella->delete("idumidita = '$id");
     }
-    
+
 
     /**
      * @return float|int ritoorna la media delle umidita
@@ -56,32 +56,63 @@ class Application_Model_Umidita
     public function getGraficoUmidita()
     {
         $risultati = $this->elencoUmidita();
-        $numero = "['umidita',";
-        $date = "['date',";
         $limite = count($risultati);
-        $i = 1;
-        foreach ($risultati as $item):
-            $data = substr($item->data, 0, 10);
-            $data = str_replace("/", "-", $data);
-            if ($i < $limite):
-                $date .= "'$data',";
-                $numero .= "'$item->umidita',";
-            else:
-                $date .= "'$data'";
-                $numero .= "'$item->umidita'";
-            endif;
-            $i++;
-        endforeach;
-        $date .= "],";
-        $numero .= "],";
-        return array("umidita" => $numero, "date" => $date);
+        if ($limite > 0):
+            $numero = "['umidita',";
+            $date = "['date',";
+            $i = 1;
+            foreach ($risultati as $item):
+                $data = substr($item->data, 0, 10);
+                $data = str_replace("/", "-", $data);
+                if ($i < $limite):
+                    $date .= "'$data',";
+                    $numero .= "'$item->umidita',";
+                else:
+                    $date .= "'$data'";
+                    $numero .= "'$item->umidita'";
+                endif;
+                $i++;
+            endforeach;
+            $date .= "],";
+            $numero .= "],";
+            return array("umidita" => $numero, "date" => $date);
+        endif;
+        return "";
 
     }
 
-    public function getUmiditaByNodo($idnodo){
+    public function getUmiditaByNodo($idnodo)
+    {
         $sql = $this->tabella->select()
-            ->where("idnodo = ?",$idnodo);
+            ->where("idnodo = ?", $idnodo);
         return $this->tabella->fetchAll($sql);
+    }
+
+    public function getGraficoUmiditaByNodo($idnodo)
+    {
+        $risultati = $this->getUmiditaByNodo($idnodo);
+        $limite = count($risultati);
+        if ($limite > 0):
+            $numero = "['umidita',";
+            $date = "['date',";
+            $i = 1;
+            foreach ($risultati as $item):
+                $data = substr($item->data, 0, 10);
+                $data = str_replace("/", "-", $data);
+                if ($i < $limite):
+                    $date .= "'$data',";
+                    $numero .= "'$item->umidita',";
+                else:
+                    $date .= "'$data'";
+                    $numero .= "'$item->umidita'";
+                endif;
+                $i++;
+            endforeach;
+            $date .= "],";
+            $numero .= "],";
+            return array("umidita" => $numero, "date" => $date);
+        endif;
+        return "";
     }
 
 }

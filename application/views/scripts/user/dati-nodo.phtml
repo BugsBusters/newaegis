@@ -1,5 +1,155 @@
 <div class="page-content aegis-page">
     <div class="container-fluid">
 
-    </div><!--.container-fluid-->
+        <div class="row">
+
+            <div class="col-xxl-3 col-lg-3 col-xl-3 col-md-3 col-sm-3 col-xs-3">
+                <section class="box-typical proj-page">
+                    <section class="proj-page-section proj-page-time-info">
+                        <div class="tbl text-center">
+                            <img src="<?php
+                            if ($this->datiNodo->statonodo == 0)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg");
+                            if ($this->datiNodo->statonodo == 1)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-orange.svg");
+                            if ($this->datiNodo->statonodo == 2)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-red.svg");
+                            if ($this->datiNodo->statonodo == 3)
+                                echo $this->baseUrl("public/adminBundle/img/svg/tree-grey.svg");
+                            ?>"/>
+                        </div>
+                        <div class="progress-compact-style">
+                            <?php echo $this->ProgressBar($this->datiNodo->statonodo); ?>
+
+                        </div>
+                    </section><!--.proj-page-section-->
+
+
+                    <section class="proj-page-section proj-page-assigned">
+                        <header class="proj-page-subtitle padding-sm">
+                            <h3>Appartiene a:</h3>
+                        </header>
+                        <div class="user-card-row">
+                            <div class="tbl-row">
+                                <div class="tbl-cell tbl-cell-photo">
+                                    <a href="#">
+                                        <img src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>"
+                                             alt="">
+                                    </a>
+                                </div>
+                                <div class="tbl-cell">
+                                    <p class="user-card-row-name"><a href="<?php echo $this->url(array(
+                                            "controller" => "user",
+                                            "action" => "visualizza-nodi",
+                                            "uliveto" => $this->datiAppezzamento->iduliveto,
+                                            "appezzamento" => $this->datiAppezzamento->idappezzamento
+                                        ), null, true); ?>"><?php echo $this->datiAppezzamento->nome; ?></a></p>
+                                    <p class="color-blue-grey-lighter"><?php echo $this->nomeUliveto; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section><!--.proj-page-section-->
+                    <?php if ($this->datiNodo->statonodo > 0 && $this->datiNodo->statonodo < 3): ?>
+                        <section class="proj-page-section">
+                            <ul class="proj-page-actions-list">
+                                <li><a href="#"><i class="font-icon font-icon-check-square"></i>Segna come sicuro</a>
+                                </li>
+
+                            </ul>
+                        </section><!--.proj-page-section-->
+                    <?php elseif ($this->datiNodo->statonodo == 3): ?>
+                        <section class="proj-page-section">
+                            <ul class="proj-page-actions-list">
+                                <li><a href="#"><i class="font-icon font-icon-check-square"></i>Segna come
+                                        funzionante</a></li>
+
+                            </ul>
+                        </section><!--.proj-page-section-->
+                    <?php endif; ?>
+                </section><!--.proj-page-->
+            </div>
+
+            <div class="col-xxl-9 col-lg-9 col-xl-9 col-md-9 col-xs-9">
+                <section class="box-typical proj-page">
+                    <section class="proj-page-section proj-page-header">
+                        <div class="title">
+                            Nodo <?php echo $this->datiNodo->posizione; ?>
+                        </div>
+                        <div class="project">Stato:
+                            <strong><?php echo $this->StatoNodo($this->datiNodo->statonodo); ?></strong></div>
+                    </section><!--.proj-page-section-->
+                    <?php if ($this->datiNodo->statonodo > 0 && $this->datiNodo->statonodo < 3): ?>
+                        <section class="proj-page-section">
+                            <div class="tbl proj-page-team">
+                                <div class="tbl-row">
+                                    <div class="project">Tempo rimanente cura:</div>
+                                    <div class="tbl-cell tbl-cell-date">3 days ago - 23 min read</div>
+                                </div>
+                            </div>
+                        </section><!-- cura -->
+                    <?php endif; ?>
+                    <section class="proj-page-section">
+
+                        <div class="proj-page-txt">
+                            <header class="proj-page-subtitle">
+                                <h3>Note sul nodo</h3>
+                            </header>
+                            <p> <?php echo $this->datiNodo->note; ?></p>
+                        </div>
+                    </section><!--.proj-page-section-->
+                    <?php if (!$this->EmptyGraph($this->valoriTemperature, $this->valoriUmidita, $this->valoriMosche)): ?>
+                        <section class="proj-page-section">
+                            <header class="proj-page-subtitle with-del">
+                                <h3>Grafico dei sensori</h3>
+                            </header>
+                            <div id="area-chart"></div>
+                        </section><!--.proj-page-section-->
+                    <?php endif; ?>
+
+                </section><!--.proj-page-->
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div><!--.container-fluid-->
 </div><!--.page-content-->
+
+<script>
+    var chart = c3.generate({
+        "bindto": '#area-chart',
+        data: {
+            xs: {
+                'umidita': 'date',
+                'mosche': 'date',
+                'temperature': 'date'
+            },
+            colors: {
+                umidita: '#c9b32c',
+                mosche: '#46c35f',
+                temperature: '#8a6075'
+            },
+            types: {
+                umidita: 'area-spline',
+                mosche: 'area-spline',
+                temperature: 'area-spline'
+            },
+            columns: [
+                <?php echo $this->dateUmidita; ?>
+                <?php echo $this->valoriTemperature; ?>
+                <?php echo $this->valoriUmidita; ?>
+                <?php echo $this->valoriMosche; ?>
+            ]
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%d-%m-%Y'
+                }
+            }
+        }
+    });
+</script>

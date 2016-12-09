@@ -119,6 +119,7 @@ class UserController extends Zend_Controller_Action
     {
         if ($this->hasParam("uliveto")) {
             $appezzamentoModel = new Application_Model_Appezzamento();
+            $nodoModel = new Application_Model_Nodo();
             $elencoAppezzamenti = $appezzamentoModel->getAppezzamentiByUliveto($this->getParam("uliveto"));
             $paginatoreAppezzamenti = new Zend_Paginator(new Zend_Paginator_Adapter_Array($elencoAppezzamenti->toArray()));
             $paginatoreAppezzamenti->setItemCountPerPage(4);
@@ -146,17 +147,40 @@ class UserController extends Zend_Controller_Action
 
     public function datiNodoAction()
     {
-        if ($this->hasParam("nodo")) {
+        if ($this->hasParam("nodo") && $this->hasParam("appezzamento") && $this->hasParam("uliveto")) {
+            //inizializzazione model
+            $ulivetoModel = new Application_Model_Uliveto();
+            $appezzamentoModel = new Application_Model_Appezzamento();
             $nodoModel = new Application_Model_Nodo();
             $temperaturaModel = new Application_Model_Temperatura();
             $umiditaModel = new Application_Model_Umidita();
             $trappolaModel = new Application_Model_Trappola();
 
+
             $datiNodo = $nodoModel->getNodoById($this->getParam("nodo"))->current();
-            $temperatureNodo = $temperaturaModel->getTemperatureByNodo($datiNodo->idnodo);
-            $umiditaNodo = $umiditaModel->getUmiditaByNodo($datiNodo->idnodo);
-            $trappolaNodo = $trappolaModel->getTrappoleByNodo($datiNodo->idnodo);
-            $this->view->assign("datiNodo",$datiNodo);
+
+            //GRAFICI
+            $datiGraficoTemperatura = $temperaturaModel->getGraficoTemperaturaByNodo($this->getParam("nodo"));
+            $datiGraficoUmidita = $umiditaModel->getGraficoUmiditaByNodo($this->getParam("nodo"));
+            $datiGraficoMosche = $trappolaModel->getGraficoTrappolaByNodo($this->getParam("nodo"));
+
+
+            //assegnamenti alla view
+            $this->view->assign("nomeUliveto", $ulivetoModel->getUlivetoById($this->getParam("uliveto"))->current()->descrizione);
+            $this->view->assign("datiAppezzamento", $appezzamentoModel->getAppezzamentoById($this->getParam("appezzamento"))->current());
+            $this->view->assign("datiNodo", $datiNodo);
+
+            //assegnamento grafici alla view
+            if (isset($datiGraficoTemperatura['temperature']))
+                $this->view->assign("valoriTemperature", $datiGraficoTemperatura['temperature']);
+            if (isset($datiGraficoUmidita['date']) && isset($datiGraficoUmidita['umidita'])):
+                $this->view->assign("dateUmidita", $datiGraficoUmidita['date']);
+                $this->view->assign("valoriUmidita", $datiGraficoUmidita['umidita']);
+            endif;
+            if (isset($datiGraficoMosche['mosche']))
+                $this->view->assign("valoriMosche", $datiGraficoMosche['mosche']);
+
+
         }
     }
 
