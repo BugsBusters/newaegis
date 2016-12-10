@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="<?php echo $this->baseUrl("public/loginBundle/css/alert.css"); ?>">
     <link rel="stylesheet" href="<?php echo $this->baseUrl("public/commonBundle/css/separate/pages/project.min.css"); ?>">
     <link rel="stylesheet" href="<?php echo $this->baseUrl("public/adminBundle/css/datatables.css"); ?>">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl("public/commonBundle/css/lib/bootstrap-sweetalert/sweetalert.css"); ?>">
     <style>
         .c3-line {
             stroke-width: 2px;
@@ -210,7 +211,11 @@
             </li>
         <?php elseif ($this->ruolo == 'admin'): ?>
             <li class="green-base-dark">
-                <a>
+                <a class="green-base-dark" href="<?php echo $this->url(array(
+                    'controller' => 'admin',
+                    'action' => 'gestione-uliveti'),
+                    'default', true);
+                ?>">
                     <i class="fa fa-pagelines"></i>
                     <span class="lbl">Gestione Uliveti</span>
                 </a>
@@ -254,6 +259,7 @@
 <script src="<?php echo $this->baseUrl("public/adminBundle/js/jquery.dataTables.js"); ?>"></script>
 <script src="<?php echo $this->baseUrl("public/adminBundle/js/dataTables.bootstrap4.js"); ?>"></script>
 <script src="<?php echo $this->baseUrl("public/adminBundle/js/datatables.js"); ?>"></script>
+<script src="<?php echo $this->baseUrl("public/commonBundle/js/lib/bootstrap-sweetalert/sweetalert.min.js"); ?>"></script>
 
 <?php echo $this->layout()->content; ?>
 

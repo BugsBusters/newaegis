@@ -42,13 +42,10 @@
                                     </a>
                                 </td>
                                 <td style="font-size: 1.2em;">
-                                    <a href="<?php echo $this->url(array(
-                                        "controller" => "admin",
-                                        "action" => "elimina-categoria",
-                                        "uliveto" => $uliveto->iduliveto),
-                                        "default", true)
-                                    ?>">
-                                        <button type="button" class="btn btn-danger m-r-xs m-b-xs">Elimina Uliveto
+                                    <a href="#">
+                                        <button type="button" class="btn btn-danger m-r-xs m-b-xs elimina"
+                                                id="<?php echo $uliveto->iduliveto; ?>">
+                                            Elimina Uliveto
                                         </button>
                                     </a>
                                 </td>
@@ -63,11 +60,11 @@
                         <div class="col-md-12 text-center">
                             <a href="<?php echo $this->url(array(
                                 "controller" => "admin",
-                                "action" => "inserisci-categoria"),
+                                "action" => "inserisci-uliveto"),
                                 "default", true)
                             ?>">
-                                <button type="button" class="btn btn-success m-r-xs m-b-xs">Inserisci una nuova
-                                    Categoria
+                                <button type="button" class="btn btn-uliveto m-r-xs m-b-xs">
+                                    Inserisci un nuovo uliveto
                                 </button>
                             </a>
                         </div>
@@ -86,10 +83,51 @@
                 "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
             },
             "fnInitComplete": function (oSettings, json) {
-                $("#datatable_filter").css("float","right").css("width","");
+                $("#datatable_filter").css("float", "right").css("width", "");
             }
-            });
         });
+
+        $(".elimina").click(function (event) {
+            event.preventDefault();
+            var id = event.target.id;
+            swal({
+                    title: "Vuoi eliminare l'uliveto?",
+                    text: "Perderai tutti gli appezzamenti e i nodi collegati!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Si, elimina!",
+                    cancelButtonText: "No, annulla!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array(
+                                    "controller" => "admin",
+                                    "action" => "elimina-uliveto"),
+                                    "default", true);
+                            ?>',
+                            data:{uliveto: id},
+                            dataType: 'json',
+                            success:function(){
+                                swal("Eliminato!", "L'uliveto è stato cancellato", "success");
+                                setTimeout(location.reload.bind(location),1000);
+                            },
+                            error: function (xhr) {
+                                console.log("xhr",xhr.responseText);
+                            }
+                        })
+                    } else {
+                        swal("Annullato", "L'uliveto non è stato cancellato", "error");
+                    }
+                });
+
+        });
+
+    });
 
 </script>
 

@@ -26,12 +26,12 @@ class Application_Model_Uliveto
 
     public function modificaUliveto($dati, $id)
     {
-        return $this->tabella->update($dati, "iduliveto = '$id");
+        return $this->tabella->update($dati, "iduliveto = '$id'");
     }
 
     public function eliminaUliveto($id)
     {
-        return $this->tabella->delete("iduliveto = '$id");
+        return $this->tabella->delete("iduliveto = '$id'");
     }
 
     /**

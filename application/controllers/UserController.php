@@ -82,7 +82,7 @@ class UserController extends Zend_Controller_Action
         }
         if (!$this->_modificaProfiloForm->isValid($request->getPost())) {
             $this->_modificaProfiloForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
-            $this->render('modificaprofilo');
+            return $this->render('modificaprofilo');
         }
         $dati = $this->_modificaProfiloForm->getValues();
         //VERIFICO SE LA PASSWORD È VUOTA. SE E VUOTA NON DEVO MODIFICARLA
@@ -123,7 +123,7 @@ class UserController extends Zend_Controller_Action
         }
         if (!$this->_parametriForm->isValid($request->getPost())) {
             $this->_parametriForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
-            $this->render('impostazioni-sensori');
+            return $this->render('impostazioni-sensori');
         }
         $dati = $this->_parametriForm->getValues();
         $parametriModel = new Application_Model_Parametri();
