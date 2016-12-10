@@ -49,20 +49,28 @@
                             </div>
                         </div>
                     </section><!--.proj-page-section-->
-                    <?php if ($this->datiNodo->statonodo > 0 && $this->datiNodo->statonodo < 3): ?>
+                    <?php if ($this->datiNodo->statonodo == 0): ?>
                         <section class="proj-page-section">
                             <ul class="proj-page-actions-list">
-                                <li><a href="#"><i class="font-icon font-icon-check-square"></i>Segna come sicuro</a>
-                                </li>
+                                <li><a href="#" class="text-warning"><i class="fa fa-bell"></i> Metti in allerta il nodo</a></li>
+                                <li><a href="#" class="text-danger"><i class="fa fa-exclamation-circle"></i> Segna come in pericolo</a></li>
 
                             </ul>
                         </section><!--.proj-page-section-->
-                    <?php elseif ($this->datiNodo->statonodo == 3): ?>
+                    <?php elseif ($this->datiNodo->statonodo == 1): ?>
                         <section class="proj-page-section">
                             <ul class="proj-page-actions-list">
-                                <li><a href="#"><i class="font-icon font-icon-check-square"></i>Segna come
-                                        funzionante</a></li>
-
+                                <li><a href="#" class="text-success"><i class="font-icon font-icon-check-square"></i>Segna come sicuro</a>
+                                </li>
+                                <li><a href="#" class="text-danger"><i class="fa fa-exclamation-circle"></i> Segna come in pericolo</a></li>
+                            </ul>
+                        </section><!--.proj-page-section-->
+                        <?php elseif ($this->datiNodo->statonodo == 2): ?>
+                        <section class="proj-page-section">
+                            <ul class="proj-page-actions-list">
+                                <li><a href="#" class="text-success"><i class="font-icon font-icon-check-square"></i>Segna come sicuro</a>
+                                </li>
+                                <li><a href="#" class="text-warning"><i class="fa fa-bell"></i> Metti in allerta il nodo</a></li>
                             </ul>
                         </section><!--.proj-page-section-->
                     <?php endif; ?>
