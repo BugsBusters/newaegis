@@ -192,10 +192,14 @@
                 </a>
             </li>
             <li class="green-base-darker">
-	            <span>
+                <a class="green-base-dark" href="<?php echo $this->url(array(
+                    'controller' => 'user',
+                    'action' => 'impostazioni-sensori'),
+                    'default', true);
+                ?>">
 	                <span class="glyphicon glyphicon-cog"></span>
 	                <span class="lbl">Impostazioni dei sensori</span>
-	            </span>
+                </a>
             </li>
         <?php elseif ($this->ruolo == 'admin'): ?>
             <li class="green-base-dark">

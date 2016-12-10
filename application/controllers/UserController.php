@@ -10,6 +10,8 @@ class UserController extends Zend_Controller_Action
 
     protected $_modificaProfiloForm = null;
 
+    protected $_parametriForm = null;
+
     public function init()
     {
         $this->_helper->layout->setLayout('control-panel');
@@ -17,6 +19,7 @@ class UserController extends Zend_Controller_Action
         $this->_utenteCorrente = $this->_authService->getIdentity()->current();
         $this->view->assign("ruolo", $this->_utenteCorrente->ruolo);
         $this->view->assign("modificaProfiloForm", $this->modificaprofiloAction());
+        $this->view->assign("parametriForm", $this->impostazioniSensoriAction());
 
     }
 
@@ -79,7 +82,7 @@ class UserController extends Zend_Controller_Action
         }
         if (!$this->_modificaProfiloForm->isValid($request->getPost())) {
             $this->_modificaProfiloForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
-            return $this->render('modificaprofilo');
+            $this->render('modificaprofilo');
         }
         $dati = $this->_modificaProfiloForm->getValues();
         //VERIFICO SE LA PASSWORD È VUOTA. SE E VUOTA NON DEVO MODIFICARLA
@@ -96,7 +99,36 @@ class UserController extends Zend_Controller_Action
 
     public function impostazioniSensoriAction()
     {
-        // action body
+        $this->_parametriForm = new Application_Form_Parametri();
+        $urlHelper = $this->_helper->getHelper('url');
+
+        //azione di default: aggiornamento dati. Il contadino avrà sempre la riga di parametri
+        $this->_parametriForm->setAction($urlHelper->url(array(
+            'controller' => 'user',
+            'action' => 'aggiorna-sensori'),
+            'default'
+        ));
+        $parametriModel = new Application_Model_Parametri();
+        // SE ESISTONO PARAMETRI, LI USO PER POPOLARE LA FORM
+        if ($parametriModel->esistenzaParametri())
+            $this->_parametriForm->populate($parametriModel->getDatiParametri()->current()->toArray());
+        return $this->_parametriForm;
+    }
+
+    public function aggiornaSensoriAction()
+    {
+        $request = $this->getRequest(); //vede se esiste una richiesta
+        if (!$request->isPost()) { //controlla che sia stata passata tramite post
+            return $this->_helper->redirector('index'); // se non c'è un passaggio tramite post, reindirizza al loginAction
+        }
+        if (!$this->_parametriForm->isValid($request->getPost())) {
+            $this->_parametriForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
+            $this->render('impostazioni-sensori');
+        }
+        $dati = $this->_parametriForm->getValues();
+        $parametriModel = new Application_Model_Parametri();
+        $parametriModel->aggiornaParametri($dati);
+        $this->_helper->redirector('index');
     }
 
     public function logoutAction()
@@ -129,7 +161,7 @@ class UserController extends Zend_Controller_Action
                 $i++;
             endforeach;
 
-            $this->view->assign("elencoNodi",$elencoNodiPerAppezzamento);
+            $this->view->assign("elencoNodi", $elencoNodiPerAppezzamento);
             $paginatoreAppezzamenti = new Zend_Paginator(new Zend_Paginator_Adapter_Array($elencoAppezzamenti->toArray()));
             $paginatoreAppezzamenti->setItemCountPerPage(4);
             $paginatoreAppezzamenti->setCurrentPageNumber($this->getParam("pagina", 1));
