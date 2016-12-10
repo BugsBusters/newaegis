@@ -26,7 +26,7 @@
                                 'action' => 'visualizza-nodi',
                                 'appezzamento' => $appezzamento['idappezzamento']
                             )) ?>">
-                                <button class="btn btn-warning"><?php echo $appezzamento['nome']; ?></button>
+                                <button class="btn btn-uliveto">Visualizza Appezzamento</button>
                             </a>
                         </div>
                         <br>
@@ -79,7 +79,16 @@
 
 
         $(window).resize(function () {
-            location.reload();
+            <?php
+            for ($i = 0; $i < count($this->elencoNodi);$i++):
+            foreach ($this->elencoNodi[$i] as $nodo):
+            $id = "#nodo" . $nodo->idnodo;
+            ?>
+            setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, $("#map<?php echo $nodo->idappezzamento; ?>"));
+            <?php
+            endforeach;
+            endfor;
+            ?>
         });
 
 

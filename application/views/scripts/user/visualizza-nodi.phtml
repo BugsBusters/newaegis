@@ -62,7 +62,15 @@
             ?>
 
             $(window).resize(function () {
-                location.reload();
+
+                <?php foreach ($this->elencoNodi as $nodo):
+                $id = "#nodo" . $nodo->idnodo; //definisco l'identificatore
+                ?>
+                //setto la posizione per ogni nodo generato automaticamente
+                setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, map);
+                <?php
+                endforeach;
+                ?>
             });
 
 

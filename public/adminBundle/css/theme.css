@@ -99,13 +99,13 @@ a, a:focus, a:hover {
 }
 
 .btn.btn-uliveto {
-    background-color: #4a303d;
-    border-color: #4a303d
+    background-color: #676708;
+    border-color: #676708
 }
 
 .btn.btn-uliveto:hover {
-    background-color: #967385;
-    border-color: #967385
+    background-color: #7f8000;
+    border-color: #7f8000
 }
 
 .page-link {
@@ -120,7 +120,7 @@ a, a:focus, a:hover {
 
 .page-item.active .page-link {
     border-color: #5c6b4c !important;
-    background-color: #b3ad79 !important
+    background-color: #7f8000 !important
 }
 
 .site-header .user-menu.dropdown .dropdown-toggle:hover, .site-header .user-menu.dropdown.open .dropdown-toggle {
