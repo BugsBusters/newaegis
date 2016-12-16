@@ -140,10 +140,11 @@
                 temperature: '#8a6075'
             },
             types: {
+                temperatura: 'area-spline',
                 umidita: 'area-spline',
-                mosche: 'area-spline',
-                temperature: 'area-spline'
+                mosche: 'area-spline'
             },
+
             columns: [
                 <?php echo $this->dateUmidita; ?>
                 <?php echo $this->valoriTemperature; ?>
@@ -155,7 +156,7 @@
             x: {
                 type: 'timeseries',
                 tick: {
-                    format: '%d-%m-%Y'
+                    format: '%d-%m-%Y %H:%M:%S'
                 }
             }
         }

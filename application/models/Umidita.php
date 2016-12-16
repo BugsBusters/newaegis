@@ -97,13 +97,14 @@ class Application_Model_Umidita
             $date = "['date',";
             $i = 1;
             foreach ($risultati as $item):
-                $data = substr($item->data, 0, 10);
-                $data = str_replace("/", "-", $data);
+                //$data = substr($item->data, 0, 10);
+                $data = str_replace("/", "-", $item->data);
+                $data = "new Date('$data')";
                 if ($i < $limite):
-                    $date .= "'$data',";
+                    $date .= "$data,";
                     $numero .= "'$item->umidita',";
                 else:
-                    $date .= "'$data'";
+                    $date .= "$data";
                     $numero .= "'$item->umidita'";
                 endif;
                 $i++;
