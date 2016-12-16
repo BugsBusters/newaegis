@@ -9,6 +9,8 @@ class AdminController extends Zend_Controller_Action
 
     protected $_ulivetoForm = null;
 
+    protected $_appezzamentoForm = null;
+
     public function init()
     {
         $this->_helper->layout->setLayout('control-panel');
@@ -18,7 +20,11 @@ class AdminController extends Zend_Controller_Action
         $this->view->assign("ulivetoForm", $this->inserisciUlivetoAction());
         if ($this->hasParam("uliveto")):
             $this->view->assign("ulivetoForm", $this->modificaUlivetoAction());
-            endif;
+        endif;
+        $this->view->assign("appezzamentoForm", $this->inserisciAppezzamentoAction());
+        if ($this->hasParam("appezzamento")):
+            $this->view->assign("appezzamentoForm", $this->modificaAppezzamentoAction());
+        endif;
     }
 
     public function indexAction()
@@ -43,8 +49,8 @@ class AdminController extends Zend_Controller_Action
             'default'
         ));
         $this->_ulivetoForm->addElement('submit', 'inserisci', array(
-            'class'         => 'btn btn-rounded btn-uliveto',
-            'label'         => 'Inserisci Uliveto'
+            'class' => 'btn btn-rounded btn-uliveto',
+            'label' => 'Inserisci Uliveto'
         ));
         return $this->_ulivetoForm;
     }
@@ -69,7 +75,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificaUlivetoAction()
     {
-        if($this->hasParam("uliveto")) {
+        if ($this->hasParam("uliveto")) {
             $ulivetoModel = new Application_Model_Uliveto();
             $datiUliveto = $ulivetoModel->getUlivetoById($this->getParam("uliveto"))->current()->toArray();
 
@@ -82,20 +88,20 @@ class AdminController extends Zend_Controller_Action
                 'default'
             ));
             $this->_ulivetoForm->addElement('submit', 'inserisci', array(
-                'class'         => 'btn btn-rounded btn-uliveto',
-                'label'         => 'Modifica Uliveto'
+                'class' => 'btn btn-rounded btn-uliveto',
+                'label' => 'Modifica Uliveto'
             ));
 
             $this->_ulivetoForm->populate($datiUliveto);
             return $this->_ulivetoForm;
-        }
-        else
+        } else
             $this->_helper->redirector('index');
 
     }
 
-    public function modificaulivetopostAction(){
-        if($this->hasParam("uliveto")) {
+    public function modificaulivetopostAction()
+    {
+        if ($this->hasParam("uliveto")) {
             $request = $this->getRequest(); //vede se esiste una richiesta
             if (!$request->isPost()) { //controlla che sia stata passata tramite post
                 return $this->_helper->redirector('index'); // se non c'è un passaggio tramite post, reindirizza al loginAction
@@ -108,23 +114,82 @@ class AdminController extends Zend_Controller_Action
             $dati = $this->_ulivetoForm->getValues();
 
             $ulivetoModel = new Application_Model_Uliveto();
-            $ulivetoModel->modificaUliveto($dati,$this->getParam("uliveto"));
+            $ulivetoModel->modificaUliveto($dati, $this->getParam("uliveto"));
         }
         $this->_helper->redirector('gestione-uliveti');
     }
 
     public function eliminaUlivetoAction()
     {
-        if($this->hasParam("uliveto")){
+        if ($this->hasParam("uliveto")) {
             $ulivetoModel = new Application_Model_Uliveto();
             $result = $ulivetoModel->eliminaUliveto($this->getParam("uliveto"));
             return $this->_helper->json($result); //restituisco al client il numero di uliveti eliminati
         }
-            return $this->_helper->json("non eliminato");
+        return $this->_helper->json("non eliminato");
+    }
+
+    public function gestioneAppezzamentiAction()
+    {
+        if ($this->hasParam("uliveto")) {
+            $appezzamentoModel = new Application_Model_Appezzamento();
+            $elencoAppezzamenti = $appezzamentoModel->getAppezzamentiByUliveto($this->getParam("uliveto"));
+            $this->view->assign("elencoAppezzamenti", $elencoAppezzamenti);
+        } else
+            $this->_helper->redirector("index");
+    }
+
+    public function inserisciAppezzamentoAction()
+    {
+        $this->_appezzamentoForm = new Application_Form_DatiAppezzamento();
+        $urlHelper = $this->_helper->getHelper('url');
+        $this->_appezzamentoForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'inserisci-appezzamento-post'),
+            'default'
+        ));
+        $this->_appezzamentoForm->addElement('submit', 'inserisci', array(
+            'class' => 'btn btn-rounded btn-uliveto',
+            'label' => 'Inserisci Appezzamento'
+        ));
+        return $this->_appezzamentoForm;
+    }
+
+    public function inserisciAppezzamentoPostAction()
+    {
+        // action body
+    }
+
+    public function modificaAppezzamentoAction()
+    {
+        // action body
+    }
+
+    public function modificaAppezzamentoPostAction()
+    {
+        // action body
+    }
+
+    public function eliminaAppezzamentoAction()
+    {
+        if ($this->hasParam("appezzamento")) {
+            $appezzamentoModel = new Application_Model_Appezzamento();
+            $risultato = $appezzamentoModel->eliminaAppezzamento($this->getParam("uliveto"));
+            return $this->_helper->json($risultato);
+        } else
+            return 1;
     }
 
 
 }
+
+
+
+
+
+
+
+
 
 
 

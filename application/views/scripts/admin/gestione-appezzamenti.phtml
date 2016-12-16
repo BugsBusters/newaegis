@@ -8,8 +8,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Uliveto</th>
-                            <th>Gestione Appezzamenti</th>
+                            <th>Appezzamento</th>
+                            <th>Mappa</th>
+                            <th>Note</th>
+                            <th>Gestione Nodi</th>
                             <th>Modifica</th>
                             <th>Elimina</th>
                         </tr>
@@ -17,8 +19,10 @@
                         <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Uliveto</th>
-                            <th>Gestione Appezzamenti</th>
+                            <th>Appezzamento</th>
+                            <th>Mappa</th>
+                            <th>Note</th>
+                            <th>Gestione nodi</th>
                             <th>Modifica</th>
                             <th>Elimina</th>
                         </tr>
@@ -26,20 +30,23 @@
                         <tbody>
                         <?php
                         $i = 0;
-                        foreach ($this->elencoUliveti as $uliveto):
+                        foreach ($this->elencoAppezzamenti as $appezzamento):
                             $i++;
                             ?>
                             <tr>
                                 <td><?php echo $i; ?></td>
-                                <td style="text-transform: capitalize"><?php echo $uliveto->descrizione; ?></td>
+                                <td style="text-transform: capitalize"><?php echo $appezzamento->nome; ?></td>
+                                <td style="text-transform: capitalize"><?php echo $appezzamento->mappa; ?></td>
+                                <td style="text-transform: capitalize"><?php echo $appezzamento->note; ?></td>
                                 <td style="font-size: 1.2em;">
                                     <a href="<?php echo $this->url(array(
                                         "controller" => "admin",
-                                        "action" => "gestione-appezzamenti",
-                                        "uliveto" => $uliveto->iduliveto),
+                                        "action" => "gestione-nodi",
+                                        "uliveto" => $appezzamento->idappezzamento,
+                                        'appezzamento' => $appezzamento->idappezzamento),
                                         "default", true)
                                     ?>">
-                                        <button type="button" class="btn btn-warning m-r-xs m-b-xs">Gestione Appezzamenti
+                                        <button type="button" class="btn btn-warning m-r-xs m-b-xs">Gestione Nodi
                                         </button>
                                     </a>
                                 </td>
@@ -47,10 +54,11 @@
                                     <a href="<?php echo $this->url(array(
                                         "controller" => "admin",
                                         "action" => "modifica-uliveto",
-                                        "uliveto" => $uliveto->iduliveto),
+                                        "uliveto" => $appezzamento->idappezzamento,
+                                        'appezzamento' => $appezzamento->idappezzamento),
                                         "default", true)
                                     ?>">
-                                        <button type="button" class="btn btn-warning m-r-xs m-b-xs">Modifica Uliveto
+                                        <button type="button" class="btn btn-warning m-r-xs m-b-xs">Modifica Appezzamento
                                         </button>
                                     </a>
                                 </td>
@@ -58,7 +66,7 @@
                                     <a href="#">
                                         <button type="button" class="btn btn-danger m-r-xs m-b-xs elimina"
                                                 id="<?php echo $uliveto->iduliveto; ?>">
-                                            Elimina Uliveto
+                                            Elimina Appezzamento
                                         </button>
                                     </a>
                                 </td>
@@ -73,11 +81,12 @@
                         <div class="col-md-12 text-center">
                             <a href="<?php echo $this->url(array(
                                 "controller" => "admin",
-                                "action" => "inserisci-uliveto"),
+                                "action" => "inserisci-uliveto",
+                                "uliveto => $this->elencoAppezzamenti"),
                                 "default", true)
                             ?>">
                                 <button type="button" class="btn btn-uliveto m-r-xs m-b-xs">
-                                    Inserisci un nuovo uliveto
+                                    Inserisci un nuovo appezzamento
                                 </button>
                             </a>
                         </div>
@@ -119,10 +128,10 @@
                         $.ajax({
                             type: 'POST',
                             url: '<?php echo $this->url(array(
-                                    "controller" => "admin",
-                                    "action" => "elimina-uliveto"),
-                                    "default", true);
-                            ?>',
+                                "controller" => "admin",
+                                "action" => "elimina-uliveto"),
+                                "default", true);
+                                ?>',
                             data:{uliveto: id},
                             dataType: 'json',
                             success:function(){

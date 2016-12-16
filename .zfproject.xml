@@ -26,6 +26,10 @@
           <actionMethod actionName="inserisciUliveto"/>
           <actionMethod actionName="modificaUliveto"/>
           <actionMethod actionName="eliminaUliveto"/>
+          <actionMethod actionName="gestioneAppezzamenti"/>
+          <actionMethod actionName="inserisciAppezzamento"/>
+          <actionMethod actionName="modificaAppezzamento"/>
+          <actionMethod actionName="eliminaAppezzamento"/>
         </controllerFile>
         <controllerFile controllerName="Login">
           <actionMethod actionName="index"/>
@@ -34,6 +38,7 @@
       <formsDirectory enabled="false">
         <formFile formName="Sensori"/>
         <formFile formName="Datiuliveto"/>
+        <formFile formName="DatiAppezzamento"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -118,6 +123,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="eliminaUliveto"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="gestioneAppezzamenti"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="inserisciAppezzamento"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="modificaAppezzamento"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="eliminaAppezzamento"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
