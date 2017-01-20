@@ -18,7 +18,7 @@ class AdminController extends Zend_Controller_Action
         $this->_utenteCorrente = $this->_authService->getIdentity()->current();
         $this->view->assign("ruolo", $this->_utenteCorrente->ruolo);
         $this->view->assign("ulivetoForm", $this->inserisciUlivetoAction());
-        if ($this->hasParam("uliveto")):
+        if ($this->hasParam("uliveto") && !$this->hasParam("appezzamento")):
             $this->view->assign("ulivetoForm", $this->modificaUlivetoAction());
         endif;
         $this->view->assign("appezzamentoForm", $this->inserisciAppezzamentoAction());
@@ -157,12 +157,41 @@ class AdminController extends Zend_Controller_Action
 
     public function inserisciAppezzamentoPostAction()
     {
-        // action body
+        $request = $this->getRequest(); //vede se esiste una richiesta
+        if (!$request->isPost()) { //controlla che sia stata passata tramite post
+            return $this->_helper->redirector('index'); // se non c'è un passaggio tramite post, reindirizza al loginAction
+        }
+        if (!$this->_appezzamentoForm->isValid($request->getPost())) {
+            $this->_appezzamentoForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
+            $this->render('inserisci-appezzamento');
+            return 1;
+        }
+        $dati = $this->_appezzamentoForm->getValues();
+        $dati['iduliveto'] = $this->getParam("uliveto");
+        $ulivetoModel = new Application_Model_Appezzamento();
+        $ulivetoModel->inserisciAppezzamento($dati);
+        $this->_helper->redirector('gestione-appezzamenti','admin', null, array("uliveto" => $this->getParam("uliveto")));
     }
 
     public function modificaAppezzamentoAction()
     {
-        // action body
+
+        $this->_appezzamentoForm = new Application_Form_DatiAppezzamento();
+        $urlHelper = $this->_helper->getHelper('url');
+        $appezzamentoModel = new Application_Model_Appezzamento();
+        $datiAppezzamento = $appezzamentoModel->getAppezzamentoById($this->getParam("appezzamento"));
+        $this->_appezzamentoForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'modifica-appezzamento-post'),
+            'default'
+        ));
+        $this->_appezzamentoForm->addElement('submit', 'inserisci', array(
+
+            'class' => 'btn btn-rounded btn-uliveto',
+            'label' => 'Modifica Appezzamento'
+        ));
+
+        return $this->_appezzamentoForm->populate($datiAppezzamento->current()->toArray());
     }
 
     public function modificaAppezzamentoPostAction()

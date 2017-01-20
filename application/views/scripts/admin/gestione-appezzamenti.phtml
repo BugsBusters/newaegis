@@ -1,3 +1,4 @@
+<?php $uliveto = 0; ?>
 <div class="page-content aegis-page">
     <div class="container-fluid">
 
@@ -53,7 +54,7 @@
                                 <td style="font-size: 1.2em;">
                                     <a href="<?php echo $this->url(array(
                                         "controller" => "admin",
-                                        "action" => "modifica-uliveto",
+                                        "action" => "modifica-appezzamento",
                                         "uliveto" => $appezzamento->idappezzamento,
                                         'appezzamento' => $appezzamento->idappezzamento),
                                         "default", true)
@@ -65,13 +66,14 @@
                                 <td style="font-size: 1.2em;">
                                     <a href="#">
                                         <button type="button" class="btn btn-danger m-r-xs m-b-xs elimina"
-                                                id="<?php echo $uliveto->iduliveto; ?>">
+                                                id="<?php echo $appezzamento->iduliveto; ?>">
                                             Elimina Appezzamento
                                         </button>
                                     </a>
                                 </td>
                             </tr>
                             <?php
+                        $uliveto = $appezzamento->iduliveto;
                         endforeach;
                         ?>
                         </tbody>
@@ -81,8 +83,8 @@
                         <div class="col-md-12 text-center">
                             <a href="<?php echo $this->url(array(
                                 "controller" => "admin",
-                                "action" => "inserisci-uliveto",
-                                "uliveto => $this->elencoAppezzamenti"),
+                                "action" => "inserisci-appezzamento",
+                                "uliveto" => $uliveto),
                                 "default", true)
                             ?>">
                                 <button type="button" class="btn btn-uliveto m-r-xs m-b-xs">
