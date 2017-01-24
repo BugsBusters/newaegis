@@ -135,6 +135,7 @@ class AdminController extends Zend_Controller_Action
             $appezzamentoModel = new Application_Model_Appezzamento();
             $elencoAppezzamenti = $appezzamentoModel->getAppezzamentiByUliveto($this->getParam("uliveto"));
             $this->view->assign("elencoAppezzamenti", $elencoAppezzamenti);
+            $this->view->assign("uliveto", $this->getParam("uliveto"));
         } else
             $this->_helper->redirector("index");
     }
@@ -170,7 +171,7 @@ class AdminController extends Zend_Controller_Action
         $dati['iduliveto'] = $this->getParam("uliveto");
         $ulivetoModel = new Application_Model_Appezzamento();
         $ulivetoModel->inserisciAppezzamento($dati);
-        $this->_helper->redirector('gestione-appezzamenti','admin', null, array("uliveto" => $this->getParam("uliveto")));
+        $this->_helper->redirector('gestione-appezzamenti', 'admin', null, array("uliveto" => $this->getParam("uliveto")));
     }
 
     public function modificaAppezzamentoAction()
@@ -185,7 +186,7 @@ class AdminController extends Zend_Controller_Action
             'action' => 'modifica-appezzamento-post'),
             'default'
         ));
-        $this->_appezzamentoForm->addElement('submit', 'inserisci', array(
+        $this->_appezzamentoForm->addElement('submit', 'modifica', array(
 
             'class' => 'btn btn-rounded btn-uliveto',
             'label' => 'Modifica Appezzamento'
@@ -196,21 +197,97 @@ class AdminController extends Zend_Controller_Action
 
     public function modificaAppezzamentoPostAction()
     {
-        // action body
+        if ($this->hasParam("appezzamento") && $this->hasParam("uliveto")) {
+            $request = $this->getRequest(); //vede se esiste una richiesta
+            if (!$request->isPost()) { //controlla che sia stata passata tramite post
+                return $this->_helper->redirector('index'); // se non c'è un passaggio tramite post, reindirizza al loginAction
+            }
+            if (!$this->_appezzamentoForm->isValid($request->getPost())) {
+                $this->_appezzamentoForm->setDescription('Attenzione: alcuni dati inseriti sono errati.');
+                $this->render('modifica-appezzamento');
+                return 1;
+            }
+            $dati = $this->_appezzamentoForm->getValues();
+
+            $appezzamentoModel = new Application_Model_Appezzamento();
+            $appezzamentoModel->modificaAppezzamento($dati, $this->getParam("appezzamento"));
+        }
+        $params = array('uliveto' => $this->getParam("uliveto"), 'appezzamento' => $this->getParam("appezzamento"));
+        $this->_helper->redirector('gestione-appezzamenti', 'admin', null, $params);
     }
 
     public function eliminaAppezzamentoAction()
     {
         if ($this->hasParam("appezzamento")) {
             $appezzamentoModel = new Application_Model_Appezzamento();
-            $risultato = $appezzamentoModel->eliminaAppezzamento($this->getParam("uliveto"));
-            return $this->_helper->json($risultato);
+            $result = $appezzamentoModel->eliminaAppezzamento($this->getParam("appezzamento"));
+            return $this->_helper->json($result); //restituisco al client il numero di uliveti eliminati
+        }
+        return $this->_helper->json("non eliminato");
+    }
+
+    public function gestioneNodiAction()
+    {
+        if ($this->hasParam("appezzamento")) {
+            $nodoModel = new Application_Model_Nodo();
+            $elencoNodi = $nodoModel->getNodoByAppezzamento($this->getParam("appezzamento"));
+            $appezzamentoModel = new Application_Model_Appezzamento();
+            $datiAppezzamento = $appezzamentoModel->getAppezzamentoById($this->getParam("appezzamento"));
+            $this->view->assign("elencoNodi", $elencoNodi);
+            $this->view->assign("currentPage", "admin/gestioneNodi");
+            $this->view->assign("datiAppezzamento", $datiAppezzamento->current());
+            $this->view->assign("currentPage", "admin/gestioneNodi");
+
         } else
-            return 1;
+            $this->_helper->redirector('index', 'user');
+    }
+
+    /**
+     *  METODO INSERIMENTO NODO VIA AJAX
+     *  IL METODO CONTROLLA L'ID DEL NODO PASSATO (ID HTML). SE ID = nodoX allora NON È MAI STATO INSERITO NEL DB
+     *  ALTRIMENTI, ID = IDNODO
+     */
+    public function inserisciNodoAction()
+    {
+        //verifico che esista il parametro nodo
+        $nodoModel = new Application_Model_Nodo();
+        if ($this->hasParam("nodo") && $this->hasParam("appezzamento")) {
+            if(strpos($this->getParam("nodo"), 'nodo') !== false) {
+                //significa che non è stato trovato il nodo. posso inserire
+
+                $datiNodo = array(
+                    //`idnodo`, `statonodo`, `posizione`, `gprs`, `idappezzamento`, `note`, `x`, `y`
+                    'idnodo' => null,
+                    'statonodo' => 1,
+                    'posizione' => substr($this->getParam("nodo"),3,1),
+                    'gprs' => 0,
+                    'idappezzamento' => $this->getParam("appezzamento"),
+                    'note' => '',
+                    'x' => $this->getParam("x"),
+                    'y' => $this->getParam("y")
+                );
+                $idNuovoNodo = $nodoModel->inserisciNodo($datiNodo);
+                return $this->_helper->json($idNuovoNodo);
+            }
+            else{
+                //il nodo esiste. aggiorno la tupla
+                $datiNodo = array(
+                    'x' => $this->getParam("x"),
+                    'y' => $this->getParam("y")
+                );
+                $nodoModel->modificaNodo($datiNodo,$this->getParam("nodo"));
+                return $this->_helper->json($this->getParam("nodo"));
+
+            }
+        }
     }
 
 
 }
+
+
+
+
 
 
 

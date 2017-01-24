@@ -17,6 +17,11 @@ class Application_Model_Nodo
         return $this->tabella->find($id);
     }
 
+    public function checkEsistenzaNodo($id){
+        return $this->tabella->exist($id);
+    }
+
+
     public function getNodoByAppezzamento($idappezzamento){
         $sql = $this->tabella->select()
                              ->where("idappezzamento = ?",$idappezzamento);
@@ -27,11 +32,11 @@ class Application_Model_Nodo
         return $this->tabella->insert($dati);
     }
     public function modificaNodo($dati,$id){
-        return $this->tabella->update($dati,"idnodo = '$id");
+        return $this->tabella->update($dati,"idnodo = '$id'");
     }
 
     public function eliminaNodo($id){
-        return $this->tabella->delete("idnodo = '$id");
+        return $this->tabella->delete("idnodo = '$id'");
     }
     
 

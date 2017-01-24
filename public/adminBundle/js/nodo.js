@@ -6,3 +6,4 @@ function setPosition(element, x, y, map) {
     })
 
 }
+

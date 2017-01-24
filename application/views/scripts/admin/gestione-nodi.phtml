@@ -1,0 +1,126 @@
+<div class="page-content aegis-page text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 text-center">
+                <section id="blockui-element-container-default" class="card">
+                    <header class="card-header text-center">
+                        <?php echo $this->datiAppezzamento->nome; ?>
+                    </header>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="card-block display-table text-center" style="max-height: 50px">
+                        <div class="col-md-12">
+                            <img class="map"
+                                 src="<?php echo $this->baseUrl("public/adminBundle/img/svg/background-olive.svg"); ?>"
+                                 width="60%">
+                            <br>
+                            <br>
+
+                            <!-- ID DEL NODO DA CAMBIARE SE ESISTONO NODI NELL'APPEZZAMENTO -->
+                            <?php
+                            $i = 0;
+                            foreach ($this->elencoNodi as $nodo):
+                                $i++;
+                                ?>
+                                <a class="tree-a" href="<?php echo $this->url(array(
+                                    'controller' => "admin",
+                                    'action' => 'dati-nodo',
+                                    'nodo' => $nodo['idnodo']
+                                )) ?>"><img id="<?php echo $nodo['idnodo']; ?>" class="tree" src="<?php
+                                    if ($nodo['statonodo'] == 0)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg");
+                                    if ($nodo['statonodo'] == 1)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-orange.svg");
+                                    if ($nodo['statonodo'] == 2)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-red.svg");
+                                    if ($nodo['statonodo'] == 3)
+                                        echo $this->baseUrl("public/adminBundle/img/svg/tree-grey.svg");
+                                    ?>"></a>
+                                <?php
+                            endforeach;
+                            for ($i; $i < 4; $i++):
+                                ?>
+                                <a class="tree-a"><img id="nodo<?php echo chr($i + 65);?>" class="tree" src="<?php
+                                    echo $this->baseUrl("public/adminBundle/img/svg/tree-green.svg"); ?>"></a>
+                            <?php endfor;
+                            ?>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+    </div><!--.container-fluid-->
+
+    <script>
+        $(document).ready(function () {
+            var appezzamento =  <?php echo $this->datiAppezzamento->idappezzamento; ?>;
+            var map = $(".map");
+            $('.tree').draggable({
+                cursor: 'move',
+                containment: 'document',
+                stop: handleDragStop
+            });
+
+            function handleDragStop(event, ui) {
+
+
+                var x = 0;
+                var y = 0;
+                x = (ui.offset.left - map.offset().left) / map.width();
+                y = (ui.offset.top - map.offset().top) / map.height();
+                //event.target.id = "nodoPORCO";
+                var idnodo = event.target.id;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo $this->url(array(
+                        "controller" => "admin",
+                        "action" => "inserisci-nodo"),
+                        "default", true);
+                        ?>',
+                    data: {
+                        nodo: idnodo,
+                        x: x,
+                        y: y,
+                        appezzamento: appezzamento
+                    },
+                    dataType: 'json',
+                    success: function (idnodo) {
+                        swal("Aggiornato!", "La posizione del nodo è stata salvata", "success");
+                        event.target.id = idnodo;
+                    },
+                    error: function (xhr) {
+                        console.log("xhr", xhr.responseText);
+                    }
+                })
+
+
+            }
+
+            <?php foreach ($this->elencoNodi as $nodo):
+            $id = "#" . $nodo->idnodo; //definisco l'identificatore
+            ?>
+            //setto la posizione per ogni nodo generato automaticamente
+            setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, map);
+            <?php
+            endforeach;
+            ?>
+
+            $(window).resize(function () {
+
+                <?php foreach ($this->elencoNodi as $nodo):
+                $id = "#" . $nodo->idnodo; //definisco l'identificatore
+                ?>
+                //setto la posizione per ogni nodo generato automaticamente
+                setPosition($("<?php echo $id; ?>"), <?php echo $nodo->x; ?>, <?php echo $nodo->y; ?>, map);
+                <?php
+                endforeach;
+                ?>
+            });
+        })
+        ;
+    </script>

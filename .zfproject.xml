@@ -30,6 +30,8 @@
           <actionMethod actionName="inserisciAppezzamento"/>
           <actionMethod actionName="modificaAppezzamento"/>
           <actionMethod actionName="eliminaAppezzamento"/>
+          <actionMethod actionName="gestioneNodi"/>
+          <actionMethod actionName="inserisciNodo"/>
         </controllerFile>
         <controllerFile controllerName="Login">
           <actionMethod actionName="index"/>
@@ -135,6 +137,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="eliminaAppezzamento"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="gestioneNodi"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="inserisciNodo"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

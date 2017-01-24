@@ -1,4 +1,4 @@
-<?php $uliveto = 0; ?>
+<?php $uliveto = $this->uliveto; ?>
 <div class="page-content aegis-page">
     <div class="container-fluid">
 
@@ -43,7 +43,7 @@
                                     <a href="<?php echo $this->url(array(
                                         "controller" => "admin",
                                         "action" => "gestione-nodi",
-                                        "uliveto" => $appezzamento->idappezzamento,
+                                        "uliveto" => $appezzamento->iduliveto,
                                         'appezzamento' => $appezzamento->idappezzamento),
                                         "default", true)
                                     ?>">
@@ -55,7 +55,7 @@
                                     <a href="<?php echo $this->url(array(
                                         "controller" => "admin",
                                         "action" => "modifica-appezzamento",
-                                        "uliveto" => $appezzamento->idappezzamento,
+                                        "uliveto" => $appezzamento->iduliveto,
                                         'appezzamento' => $appezzamento->idappezzamento),
                                         "default", true)
                                     ?>">
@@ -66,7 +66,7 @@
                                 <td style="font-size: 1.2em;">
                                     <a href="#">
                                         <button type="button" class="btn btn-danger m-r-xs m-b-xs elimina"
-                                                id="<?php echo $appezzamento->iduliveto; ?>">
+                                                id="<?php echo $appezzamento->idappezzamento; ?>">
                                             Elimina Appezzamento
                                         </button>
                                     </a>
@@ -115,8 +115,8 @@
             event.preventDefault();
             var id = event.target.id;
             swal({
-                    title: "Vuoi eliminare l'uliveto?",
-                    text: "Perderai tutti gli appezzamenti e i nodi collegati!",
+                    title: "Vuoi eliminare l'appezzamento?",
+                    text: "Perderai tutti i nodi collegati!",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
@@ -131,21 +131,26 @@
                             type: 'POST',
                             url: '<?php echo $this->url(array(
                                 "controller" => "admin",
-                                "action" => "elimina-uliveto"),
+                                "action" => "elimina-appezzamento"),
                                 "default", true);
                                 ?>',
-                            data:{uliveto: id},
+                            data:{appezzamento: id},
                             dataType: 'json',
                             success:function(){
-                                swal("Eliminato!", "L'uliveto è stato cancellato", "success");
-                                setTimeout(location.reload.bind(location),1000);
+                                swal("Eliminato!", "L'appezzamento è stato cancellato", "success");
+                                setTimeout(window.location.replace("<?php echo $this->url(array(
+                                        "controller" => "admin",
+                                        "action" => "gestione-appezzamenti",
+                                        "uliveto" => $this->uliveto),
+                                        "default", true);
+                                    ?>"),1000);
                             },
                             error: function (xhr) {
                                 console.log("xhr",xhr.responseText);
                             }
                         })
                     } else {
-                        swal("Annullato", "L'uliveto non è stato cancellato", "error");
+                        swal("Annullato", "L'appezzamento non è stato cancellato", "error");
                     }
                 });
 

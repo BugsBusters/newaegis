@@ -28,10 +28,10 @@ class Application_Model_Appezzamento
     }
 
     public function modificaAppezzamento($dati,$id){
-        return $this->tabella->update($dati,"idappezzamento = '$id");
+        return $this->tabella->update($dati,"idappezzamento = '$id'");
     }
     public function eliminaAppezzamento($id){
-        return $this->tabella->delete("idappezzamento = '$id");
+        return $this->tabella->delete("idappezzamento = '$id'");
     }
 
 }
